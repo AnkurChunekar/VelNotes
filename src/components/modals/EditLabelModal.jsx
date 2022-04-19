@@ -36,7 +36,7 @@ export function EditLabelModal({ setIsLabelModalVisible }) {
         <footer className="p-xs">
           <button
             onClick={() => setIsLabelModalVisible(false)}
-            className="btn btn-secondary btn-outline"
+            className="btn btn-secondary"
           >
             Done
           </button>
