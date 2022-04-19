@@ -1,0 +1,149 @@
+/* Homepage */
+
+.notes-homepage {
+  margin: 4rem auto 0;
+  max-width: 1440px;
+  column-gap: 2rem;
+}
+
+.notes-homepage .text-content {
+  row-gap: 3rem;
+  max-width: 50rem;
+  margin: 4rem;
+}
+
+.notes-homepage .text-content .btn {
+  padding: 1.25rem 3rem;
+}
+
+.notes-homepage .text-content .title {
+  font-size: 5.5rem;
+}
+
+.notes-homepage .text-content .subtitle {
+  line-height: 1.5;
+  font-size: 1.8rem;
+}
+
+.homepage-nav {
+  max-width: 1440px;
+  padding: 2.5rem;
+  row-gap: 2rem;
+  margin: 0 auto;
+}
+
+.homepage-nav .brand-logo {
+  width: 25px;
+}
+
+.homepage-nav .brand {
+  font-size: 2.5rem;
+  letter-spacing: 2.8px;
+  line-height: 0;
+  padding-top: 0.3rem;
+  margin-left: 0.5rem;
+}
+
+.wave {
+  position: fixed;
+  bottom: -8.5rem;
+  z-index: -1;
+}
+
+/*  Media Queries  */
+
+@media screen and (max-width: 1400px) {
+  .wave {
+    bottom: -40px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .notes-homepage .text-content .title {
+    font-size: 4rem;
+  }
+
+  .notes-homepage .text-content .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .notes-homepage .text-content {
+    margin: 3rem;
+  }
+
+  .notes-homepage {
+    column-gap: 0;
+  }
+
+  .notes-homepage .notes-illustration {
+    width: 400px;
+  }
+
+  .wave {
+    bottom: -10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .notes-homepage {
+    flex-wrap: wrap-reverse;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .notes-homepage .text-content {
+    align-items: center;
+    row-gap: 2rem;
+  }
+
+  .wave {
+    position: static;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  .notes-homepage .text-content {
+    margin: 1rem;
+  }
+
+  .notes-homepage .text-content .title {
+    font-size: 3rem;
+  }
+
+  .notes-homepage .text-content .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .notes-homepage .notes-illustration {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .homepage-nav {
+    padding: 2rem 1rem;
+  }
+
+  .homepage-nav .brand-logo {
+    width: 2.2rem;
+  }
+
+  .homepage-nav .brand {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .homepage-nav {
+    padding: 2rem 1rem;
+  }
+
+  .homepage-nav .brand-logo {
+    width: 2.2rem;
+  }
+
+  .homepage-nav .brand {
+    font-size: 2rem;
+  }
+}
