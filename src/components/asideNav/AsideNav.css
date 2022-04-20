@@ -1,0 +1,69 @@
+/* Side Nav */
+
+.side-nav {
+  width: 270px;
+  background-color: var(--side-nav-dark-bg);
+  color: var(--plain-white);
+  flex-shrink: 0;
+  height: 100vh;
+}
+
+.side-nav .brand-container {
+  padding: 2.2rem 2rem;
+  margin-bottom: 1rem;
+  border-bottom: solid 2px #666666;
+}
+
+.side-nav .nav-brand {
+  margin-left: 1.5rem;
+}
+
+.side-nav .brand-logo {
+  width: 21px;
+  margin-right: 0.5rem;
+  border-radius: 2px;
+}
+
+.side-nav .brand,
+.side-nav .ham-icon {
+  font-size: 2rem;
+}
+
+.side-nav .ham-icon {
+  color: var(--plain-white);
+}
+
+.side-nav .item {
+  padding: 1.8rem;
+  display: flex;
+  column-gap: 2.5rem;
+  align-items: center;
+  cursor: pointer;
+  border-left: solid 4px transparent;
+  background-color: transparent;
+  color: var(--plain-white);
+  text-decoration: none;
+}
+
+.side-nav .item.active {
+  background-color: var(--side-nav-hover-bg);
+  border-left: solid 4px #4e95ff;
+}
+
+.side-nav .item:hover {
+  background-color: var(--side-nav-hover-bg);
+  border-left: solid 4px #a2b5d1;
+}
+
+/* Compressed */
+
+.side-nav.compressed {
+  width: 60px;
+}
+
+.side-nav.compressed .item .text,
+.side-nav.compressed .nav-brand {
+  display: none;
+}
+
+

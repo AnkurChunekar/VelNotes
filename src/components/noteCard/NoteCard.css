@@ -1,0 +1,51 @@
+.note {
+  height: 280px;
+  border-radius: 5px;
+  background-color: var(--plain-white);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+}
+
+.note .actions {
+  display: flex;
+  column-gap: 1.5rem;
+}
+
+.note .icon {
+  font-size: 1.7rem;
+  color: gray;
+}
+
+.note .icon:hover {
+  color: var(--primary-color);
+}
+
+.note .content,
+.note .title {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note .title {
+  font-size: var(--font-size-h4);
+}
+
+.note .content {
+  height: auto;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  margin-top: 1rem;
+  line-height: 1.4;
+  font-size: 1.4rem;
+}
+
+.note .footer {
+  margin-top: auto;
+}
+
+.note .date {
+  font-size: 1.3rem;
+}

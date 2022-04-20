@@ -1,0 +1,41 @@
+/* Filters */
+
+.notes-filters {
+  position: relative;
+  padding: 2rem 3rem;
+  border-bottom: solid 1px var(--plain-lightgray);
+}
+
+/* Chips */
+
+.notes-filters .chips-container {
+  column-gap: 1.5rem;
+}
+
+.notes-filters .chips-container .chip,
+.notes-filters .filter-btn {
+  border-radius: 5px;
+  background-color: var(--plain-white);
+  padding: 0.5rem 1rem;
+  border: solid 1px var(--plain-lightgray);
+}
+
+.notes-filters .chips-container .chip.active {
+  background-color: var(--primary-color);
+  color: var(--plain-white);
+}
+
+/* filters Menu */
+
+.filter-container .filter-menu {
+  width: 400px;
+  position: absolute;
+  background-color: var(--plain-white);
+  top: 85%;
+  border-radius: 5px;
+  border: solid 1.5px var(--plain-lightgray);
+  right: 28px;
+  height: fit-content;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+}

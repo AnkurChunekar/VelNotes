@@ -1,0 +1,51 @@
+/* Create Note Modal */
+
+.modal-container {
+  z-index: 3;
+}
+
+.create-note-modal .modal-body .title,
+.create-note-modal .modal-body .content {
+  padding: 1rem;
+  resize: none;
+  border: solid 1px var(--plain-lightgray);
+  border-radius: 5px;
+  width: 100%;
+}
+
+.create-note-modal .modal-body .content {
+  height: 250px;
+}
+
+.create-note-modal.modal {
+  width: 100%;
+  max-width: 50rem;
+}
+
+.create-note-modal .options-container select {
+  padding: 0.5rem;
+  border: solid 1px var(--plain-lightgray);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Label Modal  */
+
+.label-modal {
+  color: black;
+}
+
+.label-modal .edit-labels {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.label-modal .edit-labels input {
+  border: none;
+  border-bottom: solid 1.5px var(--plain-lightgray);
+  width: 150px;
+}
+
+.label-modal footer {
+  border-top: solid 1.5px var(--plain-lightgray);
+}
