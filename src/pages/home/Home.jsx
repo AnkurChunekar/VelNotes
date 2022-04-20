@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../../context";
 import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
 import "./Home.css";
 
 export function Home() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { authState, userLogoutService } = useAuth();
+  const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     if (pathname === "/home") {
@@ -14,6 +17,7 @@ export function Home() {
   }, []);
 
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
+  const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
   const getPageTitle = (pathname) => {
     switch (pathname) {
@@ -46,19 +50,27 @@ export function Home() {
               <i className="fas fa-search" />
             </button>
           </div>
-          <button className="user-profile btn-unset flex">
+          <button
+            onClick={() => setAccountMenuVisible((pv) => !pv)}
+            className="user-profile btn-unset flex"
+          >
             <div className="flex flex-column ai-end jc-center m-xs m-tb0">
               <span className="gray-text fs-6"> Welcome </span>
-              <span>
-                Ankur Chunekar <i className="fas fa-caret-down" />
-              </span>
+              <span>{user.firstName + " " + user.lastName}</span>
             </div>
             <img
               className="profile-img"
-              src="https://avatars.githubusercontent.com/u/89077985?v=4"
+              src="https://raw.githubusercontent.com/AnkurChunekar/VelocityUI/development/images/avatar-image1.jpg"
               alt="user profile"
             />
           </button>
+
+          {accountMenuVisible ? (
+            <div className="account-menu flex flex-column">
+              <button onClick={userLogoutService}>Logout</button>
+            </div>
+          ) : null}
+
         </header>
         <section className="notes-header flex">
           <h1 className="fw-600 fs-2">

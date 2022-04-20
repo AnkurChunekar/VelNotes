@@ -1,6 +1,6 @@
 /* Main */
 
-.auth-main {
+.main-container {
   margin: 4rem 0;
   min-height: 60vh;
 }
@@ -27,4 +27,27 @@
   cursor: pointer;
   background-color: var(--plain-white);
   color: var(--plain-black);
+}
+
+.fullname-container {
+  column-gap: 1rem;
+}
+
+.c-gap-1rem {
+  column-gap: 1rem;
+}
+
+.input-wrapper.error {
+  padding: 0;
+}
+
+/* Remember me */
+
+.authentication-container .checkbox input {
+  margin: 0 1rem 1rem 0;
+}
+
+/* utils */
+.transparent-bg {
+  background-color: transparent;
 }

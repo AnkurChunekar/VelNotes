@@ -60,7 +60,8 @@
 }
 
 .page-header .profile-img {
-  width: 30px;
+  width: 35px;
+  border-radius: var(--round-radius);
 }
 
 /* Notes Page */
@@ -92,4 +93,37 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 280px);
   grid-gap: 3rem;
+}
+
+/* Account menu */
+
+.page-header .account-menu {
+  position: absolute;
+  border: solid var(--plain-gray) 1px;
+  background-color: var(--plain-white);
+  top: 90%;
+  right: 10px;
+}
+
+.page-header .account-menu button {
+  padding: 1rem 2rem;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.page-header .account-menu button:hover {
+  background-color: var(--lynx-white);
+}
+
+.page-header .account-menu::after {
+  content: "";
+  height: 10px;
+  width: 10px;
+  transform: rotate(45deg);
+  position: absolute;
+  border-top: solid var(--plain-gray) 1px;
+  border-left: solid var(--plain-gray) 1px;
+  right: 18px;
+  top: -6px;
+  background-color: var(--plain-white);
 }
