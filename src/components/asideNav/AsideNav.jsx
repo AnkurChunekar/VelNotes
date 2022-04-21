@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context";
 import { EditLabelModal } from "../modals/EditLabelModal";
 import { logoWhite } from "../../assets";
 import "./AsideNav.css";
@@ -7,6 +8,7 @@ import "./AsideNav.css";
 export function AsideNav() {
   const [labelModalVisible, setIsLabelModalVisible] = useState(false);
   const [sideNavCompressed, setSideNavCompressed] = useState(false);
+  const { userLogoutService } = useAuth();
 
   return (
     <nav
@@ -57,12 +59,12 @@ export function AsideNav() {
         <span className="text"> Trash </span>
       </NavLink>
 
-      <NavLink to="/" className="item">
+      <button onClick={userLogoutService} className="item">
         <span>
           <i className="fa-solid fa-right-from-bracket" />
         </span>
         <span className="text"> Logout </span>
-      </NavLink>
+      </button>
 
       {labelModalVisible ? (
         <EditLabelModal

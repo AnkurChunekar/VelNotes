@@ -38,7 +38,7 @@ export function EditLabelModal({ setIsLabelModalVisible }) {
             onClick={() => setIsLabelModalVisible(false)}
             className="btn btn-secondary"
           >
-            Done
+            Close
           </button>
         </footer>
       </div>
