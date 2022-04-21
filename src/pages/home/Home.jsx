@@ -56,7 +56,14 @@ export function Home() {
           >
             <div className="flex flex-column ai-end jc-center m-xs m-tb0">
               <span className="gray-text fs-6"> Welcome </span>
-              <span>{user.firstName + " " + user.lastName}</span>
+              <span>
+                {user.firstName + " " + user.lastName}{" "}
+                <i
+                  className={`fas fa-caret-${
+                    accountMenuVisible ? "up" : "down"
+                  }`}
+                />
+              </span>
             </div>
             <img
               className="profile-img"
@@ -70,7 +77,6 @@ export function Home() {
               <button onClick={userLogoutService}>Logout</button>
             </div>
           ) : null}
-
         </header>
         <section className="notes-header flex">
           <h1 className="fw-600 fs-2">
