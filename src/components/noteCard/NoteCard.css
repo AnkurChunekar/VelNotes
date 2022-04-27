@@ -42,6 +42,10 @@
   font-size: 1.4rem;
 }
 
+.note .content img {
+  max-width: 100%;
+}
+
 .note .footer {
   margin-top: auto;
 }
