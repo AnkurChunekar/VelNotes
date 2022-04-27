@@ -1,24 +1,22 @@
+import HtmlParser from "react-html-parser/lib/HtmlParser";
 import "./NoteCard.css";
 
-export function NoteCard() {
+export function NoteCard({ noteData }) {
+  const { title, content, date, time } = noteData;
+
   return (
     <div className="note flex flex-column">
       <header className="flex ai-center jc-space-b">
-        <h2 className="title fw-600">My Notes</h2>
+        <h2 className="title fw-600"> {title} </h2>
         <button title="Pin" className="btn-unset">
           <i className="icon fa-solid fa-map-pin" />
         </button>
       </header>
-      <p className="content">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda
-        quibusdam molestiae, vitae natus, placeat voluptate quisquam voluptatem
-        ullam illum quam tempora officia sapiente perspiciatis. Iure alias
-        ratione vitae delectus molestiae?natus, placeat voluptate quisquam
-        voluptatem ullam illum quam tempora officia sapiente perspiciatis. Iure
-        alias ratione vitae delectus molestiae?
-      </p>
+      <div className="content">{HtmlParser(content)}</div>
       <footer className="footer flex ai-center jc-space-b">
-        <div className="date">02/04/2020</div>
+        <div className="date">
+          {date} | {time}
+        </div>
         <div className="actions">
           <button title="Delete" className="btn-unset">
             <i className="icon fa-solid fa-trash" />

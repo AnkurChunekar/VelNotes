@@ -2,7 +2,7 @@ import "./Modals.css";
 
 export function EditLabelModal({ setIsLabelModalVisible }) {
   return (
-    <div className="modal-container flex-center active">
+    <div className="modal-container label-modal-container flex-center active">
       <div className="modal label-modal m-md1">
         <div className="edit-labels p-md1">
           <span className="fs-4"> Edit Labels </span>

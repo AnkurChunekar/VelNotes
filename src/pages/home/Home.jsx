@@ -15,7 +15,7 @@ export function Home() {
       navigate("/home/notes");
     }
   }, []);
-
+  const [labelModalVisible, setIsLabelModalVisible] = useState(false);
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
@@ -34,7 +34,10 @@ export function Home() {
 
   return (
     <div className="flex page-container">
-      <AsideNav />
+      <AsideNav
+        labelModalVisible={labelModalVisible}
+        setIsLabelModalVisible={setIsLabelModalVisible}
+      />
 
       {/* Header for notes */}
 
@@ -93,6 +96,8 @@ export function Home() {
           </div>
           {createNoteModalVisible ? (
             <CreateNoteModal
+              labelModalVisible={labelModalVisible}
+              setIsLabelModalVisible={setIsLabelModalVisible}
               setCreateNoteModalVisible={setCreateNoteModalVisible}
             />
           ) : null}
