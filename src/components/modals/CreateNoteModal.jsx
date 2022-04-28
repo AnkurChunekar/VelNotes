@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { formatDate } from "../../backend/utils/authUtils";
 import { RichTextEditor } from "../editor/RichTextEditor";
 import { useNotes } from "../../context/notes-context";
 import "./Modals.css";
-import { toast } from "react-toastify";
 
 export function CreateNoteModal({
   setCreateNoteModalVisible,
@@ -17,8 +18,7 @@ export function CreateNoteModal({
     color: "green",
     tags: [],
     priority: "low",
-    date: currentDate.toDateString().slice(4),
-    time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+    date: formatDate(),
   };
 
   const { addNewNoteService } = useNotes();
