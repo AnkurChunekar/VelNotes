@@ -50,25 +50,14 @@ export function makeServer({ environment = "development" } = {}) {
           notes: [
             {
               _id: uuid(),
-              title: "First Quote",
-              content:
-                "<p>Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. -Steve Jobs</p>",
-              isPinned: true,
-              color: "green",
-              tags: [],
-              priority: "low",
-              date: formatDate(),
-            },
-            {
-              _id: uuid(),
-              title: "Second Quote",
+              title: "One Quote",
               content:
                 "<p>Many of life's failures are people who did not realize how close they were to success when they gave up. -Thomas A. Edison</p>",
               isPinned: false,
-              color: "green",
+              color: "red",
               tags: [],
               priority: "low",
-              date: formatDate(),
+              date: "2022-04-28T21:42:05+05:30",
             },
           ],
           archives: [],

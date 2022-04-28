@@ -1,34 +1,29 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useOutletContext } from "react-router-dom";
 import { formatDate } from "../../backend/utils/authUtils";
 import { RichTextEditor } from "../editor/RichTextEditor";
 import { useNotes } from "../../context/notes-context";
+import { ifNoteEditNoteDataDiffer } from "../../helpers";
 import "./Modals.css";
 
-export function CreateNoteModal({
-  setCreateNoteModalVisible,
-  setIsLabelModalVisible,
-}) {
-  const currentDate = new Date();
-
+export function EditNoteModal({ noteData, setEditNoteModalVisible }) {
   const initialInputData = {
-    title: "",
-    content: "<p><br></p>",
-    isPinned: false,
-    color: "green",
-    tags: [],
-    priority: "low",
+    ...noteData,
     date: formatDate(),
   };
 
-  const { addNewNoteService } = useNotes();
-
   const [inputData, setInputData] = useState(initialInputData);
+  const [setIsLabelModalVisible] = useOutletContext();
+  const { editNoteService } = useNotes();
 
-  const addNewNoteHandler = () => {
-    if(inputData.title.trim() !== "") {
-      setCreateNoteModalVisible(false);
-      addNewNoteService(inputData);
+  const saveEditedNoteClick = () => {
+    if (inputData.title.trim() !== "") {
+      setEditNoteModalVisible(false);
+
+      if (ifNoteEditNoteDataDiffer(noteData, inputData)) {
+        editNoteService(inputData);
+      }
     } else {
       toast.error("Add a Note Title!");
     }
@@ -38,9 +33,9 @@ export function CreateNoteModal({
     <div className="modal-container flex-center active">
       <div className="modal create-note-modal m-md1">
         <header className="p-md1">
-          <div className="modal-title fs-3 fw-600 icon">Create Note</div>
+          <div className="modal-title fs-3 fw-600 icon">Note</div>
           <button
-            onClick={() => setCreateNoteModalVisible(false)}
+            onClick={() => setEditNoteModalVisible(false)}
             id="create-note-close"
             className="btn-unset"
           >
@@ -125,8 +120,9 @@ export function CreateNoteModal({
           >
             Add Label
           </button>
-          <button onClick={addNewNoteHandler} className="btn btn-primary">
-            <i className="fas fa-plus" /> Create Note
+          <button onClick={saveEditedNoteClick} className="btn btn-primary">
+            {" "}
+            Save Note
           </button>
         </footer>
       </div>

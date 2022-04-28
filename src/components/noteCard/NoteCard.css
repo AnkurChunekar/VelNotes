@@ -29,17 +29,21 @@
 
 .note .title {
   font-size: var(--font-size-h4);
+  text-overflow: ellipsis;
+  max-width: 200px;
+  white-space: nowrap;
 }
 
 .note .content {
-  height: auto;
+  height: 175px;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 9;
   -webkit-box-orient: vertical;
   margin-top: 1rem;
   line-height: 1.4;
   font-size: 1.4rem;
+  cursor: pointer;
 }
 
 .note .content img {
