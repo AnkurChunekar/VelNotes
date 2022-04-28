@@ -35,19 +35,37 @@ const NotesProvider = ({ children }) => {
     }
   };
 
-  const getNotesService = async (note) => {
+  const toggleNotePinService = async (note) => {
     try {
-      const response = await axios.get("/api/notes", {
+      const response = await axios.post(
+        `/api/notes/pin/${note._id}`,
+        { note },
+        {
+          headers: { authorization: token },
+        }
+      );
+      if (response.status === 200) {
+        notesDispatch({
+          type: "UPDATE_NOTES",
+          payload: { notes: response.data.notes },
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getNotesData = async () => {
+    try {
+      const response = await axios.get(`/api/notes`, {
         headers: { authorization: token },
       });
-      console.log(response);
-      // if (response.status === 201) {
-      //   // notesDispatch({
-      //   //   type: "UPDATE_NOTES",
-      //   //   payload: { notesList: data.notes },
-      //   // });
-      //   toast.success("Note added successfully.");
-      // }
+      if (response.status === 200) {
+        notesDispatch({
+          type: "UPDATE_NOTES",
+          payload: { notes: response.data.notes },
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -55,8 +73,10 @@ const NotesProvider = ({ children }) => {
 
   const value = {
     notesState,
+    getNotesData,
     notesDispatch,
     addNewNoteService,
+    toggleNotePinService,
   };
 
   return (

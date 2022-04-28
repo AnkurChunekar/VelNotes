@@ -53,3 +53,7 @@
 .note .date {
   font-size: 1.2rem;
 }
+
+.note .fa-map-pin.active {
+  color: var(--primary-color);
+}
