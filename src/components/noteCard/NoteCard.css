@@ -42,10 +42,18 @@
   font-size: 1.4rem;
 }
 
+.note .content img {
+  max-width: 100%;
+}
+
 .note .footer {
   margin-top: auto;
 }
 
 .note .date {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+}
+
+.note .fa-map-pin.active {
+  color: var(--primary-color);
 }

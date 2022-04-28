@@ -5,8 +5,6 @@ export function Trash() {
     <>
       <section className="notes-section">
         <div className="notes-container">
-          <NoteCard />
-          <NoteCard />
         </div>
       </section>
     </>

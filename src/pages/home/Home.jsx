@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../../context";
+import { useAuth, useNotes } from "../../context";
 import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
 import "./Home.css";
 
@@ -8,6 +8,7 @@ export function Home() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { authState, userLogoutService } = useAuth();
+  const { getNotesData } = useNotes();
   const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -16,6 +17,11 @@ export function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    getNotesData();
+  }, []);
+
+  const [labelModalVisible, setIsLabelModalVisible] = useState(false);
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
@@ -34,7 +40,10 @@ export function Home() {
 
   return (
     <div className="flex page-container">
-      <AsideNav />
+      <AsideNav
+        labelModalVisible={labelModalVisible}
+        setIsLabelModalVisible={setIsLabelModalVisible}
+      />
 
       {/* Header for notes */}
 
@@ -93,6 +102,8 @@ export function Home() {
           </div>
           {createNoteModalVisible ? (
             <CreateNoteModal
+              labelModalVisible={labelModalVisible}
+              setIsLabelModalVisible={setIsLabelModalVisible}
               setCreateNoteModalVisible={setCreateNoteModalVisible}
             />
           ) : null}

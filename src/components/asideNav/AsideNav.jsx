@@ -5,8 +5,7 @@ import { EditLabelModal } from "../modals/EditLabelModal";
 import { logoWhite } from "../../assets";
 import "./AsideNav.css";
 
-export function AsideNav() {
-  const [labelModalVisible, setIsLabelModalVisible] = useState(false);
+export function AsideNav({labelModalVisible, setIsLabelModalVisible}) {
   const [sideNavCompressed, setSideNavCompressed] = useState(false);
   const { userLogoutService } = useAuth();
 

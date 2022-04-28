@@ -1,6 +1,39 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { formatDate } from "../../backend/utils/authUtils";
+import { RichTextEditor } from "../editor/RichTextEditor";
+import { useNotes } from "../../context/notes-context";
 import "./Modals.css";
 
-export function CreateNoteModal({ setCreateNoteModalVisible }) {
+export function CreateNoteModal({
+  setCreateNoteModalVisible,
+  setIsLabelModalVisible,
+}) {
+  const currentDate = new Date();
+
+  const initialInputData = {
+    title: "",
+    content: "<p><br></p>",
+    isPinned: false,
+    color: "green",
+    tags: [],
+    priority: "low",
+    date: formatDate(),
+  };
+
+  const { addNewNoteService } = useNotes();
+
+  const [inputData, setInputData] = useState(initialInputData);
+
+  const addNewNoteHandler = () => {
+    if(inputData.title.trim() !== "") {
+      setCreateNoteModalVisible(false);
+      addNewNoteService(inputData);
+    } else {
+      toast.error("Add a Note Title!");
+    }
+  };
+
   return (
     <div className="modal-container flex-center active">
       <div className="modal create-note-modal m-md1">
@@ -14,39 +47,85 @@ export function CreateNoteModal({ setCreateNoteModalVisible }) {
             <i className="fas fa-times fs-4" />
           </button>
         </header>
+
         <section className="modal-body flex flex-column p-md1 p-tb0">
-          <input type="text" placeholder="Title...." className="title" />
-          <textarea
-            placeholder="Note Content Here.."
-            className="content m-xs m-rl0"
-            defaultValue=""
+          <input
+            type="text"
+            placeholder="Title...."
+            className="title"
+            value={inputData.value}
+            onChange={(e) =>
+              setInputData((data) => ({ ...data, title: e.target.value }))
+            }
+          />
+
+          <RichTextEditor
+            value={inputData.content}
+            setValue={(content) =>
+              setInputData((data) => ({ ...data, content }))
+            }
           />
         </section>
+
         <section className="options-container flex ai-center jc-space-b flex-wrap p-md1">
           <div>
             <label htmlFor="priority">Label: </label>
-            <select name="priority" id="priority">
+            <select
+              value={inputData.label}
+              onChange={(e) =>
+                setInputData((data) => ({ ...data, tags: [e.target.value] }))
+              }
+              name="priority"
+              id="priority"
+            >
               <option value="work">Work</option>
               <option value="home">Home</option>
             </select>
           </div>
+
           <div>
             <label htmlFor="priority">Color: </label>
-            <select name="priority" id="priority">
-              <option value="red">Red</option>
+            <select
+              value={inputData.color}
+              onChange={(e) =>
+                setInputData((data) => ({ ...data, color: e.target.value }))
+              }
+              name="priority"
+              id="priority"
+            >
+              <option value="blue">Blue</option>
               <option value="green">Green</option>
+              <option value="red">Red</option>
+              <option value="orange">Orange</option>
             </select>
           </div>
+
           <div>
             <label htmlFor="priority">Priority: </label>
-            <select name="priority" id="priority">
-              <option value="high">High</option>
+            <select
+              value={inputData.priority}
+              onChange={(e) =>
+                setInputData((data) => ({ ...data, priority: e.target.value }))
+              }
+              name="priority"
+              id="priority"
+            >
               <option value="low">Low</option>
+              <option value="high">High</option>
             </select>
           </div>
         </section>
-        <footer className="modal-actions p-md1">
-          <button className="btn btn-primary">
+
+        <footer className="modal-actions p-md1 flex ai-center">
+          <button
+            onClick={() => {
+              setIsLabelModalVisible(true);
+            }}
+            className="btn btn-secondary"
+          >
+            Add Label
+          </button>
+          <button onClick={addNewNoteHandler} className="btn btn-primary">
             <i className="fas fa-plus" /> Create Note
           </button>
         </footer>

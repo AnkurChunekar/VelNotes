@@ -151,12 +151,123 @@ export const archiveNoteHandler = function (schema, request) {
     const { noteId } = request.params;
     const archivedNote = user.notes.filter((note) => note._id === noteId)[0];
     user.notes = user.notes.filter((note) => note._id !== noteId);
-    user.archives.push({ ...archivedNote });
+    user.archives.push({ ...archivedNote, isPinned: false });
     this.db.users.update({ _id: user._id }, user);
     return new Response(
       201,
       {},
       { archives: user.archives, notes: user.notes }
+    );
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+/**
+ * This handler handles trashing a note
+ * send POST Request at /api/notes/trash/:noteId
+ * body contains {note}
+ * */
+export const moveNoteToTrashHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: ["The email you entered is not Registered. Not Found error"],
+        }
+      );
+    }
+    const { noteId } = request.params;
+    const trashedNote = user.notes.filter((note) => note._id === noteId)[0];
+    user.notes = user.notes.filter((note) => note._id !== noteId);
+    user.trash.push({ ...trashedNote, isPinned: false });
+    this.db.users.update({ _id: user._id }, user);
+    return new Response(201, {}, { trash: user.trash, notes: user.notes });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+export const updateNotePinHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: ["The email you entered is not Registered. Not Found error"],
+        }
+      );
+    }
+    const { note } = JSON.parse(request.requestBody);
+    const { noteId } = request.params;
+    const noteIndex = user.notes.findIndex((note) => note._id === noteId);
+    user.notes[noteIndex] = {
+      ...user.notes[noteIndex],
+      isPinned: !note.isPinned,
+    };
+    this.db.users.update({ _id: user._id }, user);
+    return new Response(200, {}, { notes: user.notes });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+export const updateNoteDeleteLabel = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: ["The email you entered is not Registered. Not Found error"],
+        }
+      );
+    }
+    const { deletedLabel } = JSON.parse(request.requestBody);
+    user.notes = user.notes.map((note) =>
+      note.tags.includes(deletedLabel)
+        ? { ...note, tags: note.tags.filter((tag) => tag !== deletedLabel) }
+        : note
+    );
+    user.archives = user.archives.map((note) =>
+      note.tags.includes(deletedLabel)
+        ? { ...note, tags: note.tags.filter((tag) => tag !== deletedLabel) }
+        : note
+    );
+    user.trash = user.trash.map((note) =>
+      note.tags.includes(deletedLabel)
+        ? { ...note, tags: note.tags.filter((tag) => tag !== deletedLabel) }
+        : note
+    );
+    this.db.users.update({ _id: user._id }, user);
+    return new Response(
+      201,
+      {},
+      { notes: user.notes, archives: user.archives, trash: user.trash }
     );
   } catch (error) {
     return new Response(

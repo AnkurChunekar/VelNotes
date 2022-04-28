@@ -4,22 +4,30 @@
   z-index: 3;
 }
 
-.create-note-modal .modal-body .title,
-.create-note-modal .modal-body .content {
+.create-note-modal .modal-body .title {
   padding: 1rem;
   resize: none;
   border: solid 1px var(--plain-lightgray);
-  border-radius: 5px;
   width: 100%;
 }
 
 .create-note-modal .modal-body .content {
-  height: 250px;
+  height: 220px;
+  margin-bottom: 4rem;
+  width: 100%;
 }
 
 .create-note-modal.modal {
   width: 100%;
   max-width: 50rem;
+}
+
+.create-note-modal.modal footer {
+  justify-content: space-between;
+}
+
+.create-note-modal .options-container {
+  row-gap: 1rem;
 }
 
 .create-note-modal .options-container select {
@@ -30,6 +38,10 @@
 }
 
 /* Label Modal  */
+
+.label-modal-container {
+  z-index: 5;
+}
 
 .label-modal {
   color: black;
