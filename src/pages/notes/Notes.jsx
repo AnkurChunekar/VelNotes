@@ -27,9 +27,9 @@ export function Notes() {
 
       {/* Unpinned Notes */}
 
-      <section className="notes-section">
-        {unPinnedNotes.length > 0 ? (
-          <>
+      {unPinnedNotes.length > 0 ? (
+        <>
+          <section className="notes-section">
             <h2 className="fw-400 fs-5 m-xs m-rl0 gray-text">All Notes.</h2>
             <div className="notes-container">
               {unPinnedNotes.map((item) => (
@@ -38,13 +38,15 @@ export function Notes() {
                 </Fragment>
               ))}
             </div>
-          </>
-        ) : (
-          <div className="center-align-text fs-4">
-            You Haven't added any notes yet.
-          </div>
-        )}
-      </section>
+          </section>
+        </>
+      ) : null}
+
+      {pinnedNotes.length < 1 && unPinnedNotes.length < 1 ? (
+        <div className="center-align-text fs-4 m-xs">
+          You Haven't added any notes yet.
+        </div>
+      ) : null}
     </>
   );
 }
