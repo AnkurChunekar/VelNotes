@@ -71,12 +71,32 @@ const NotesProvider = ({ children }) => {
     }
   };
 
+  const editNoteService = async (note) => {
+    try {
+      const response = await axios.post(
+        `/api/notes/${note._id}`,
+        { note },
+        { headers: { authorization: token } }
+      );
+      if (response.status === 201) {
+        notesDispatch({
+          type: "UPDATE_NOTES",
+          payload: { notes: response.data.notes },
+        });
+        toast.success("Note edited successfully.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const value = {
     notesState,
     getNotesData,
     notesDispatch,
     addNewNoteService,
     toggleNotePinService,
+    editNoteService,
   };
 
   return (

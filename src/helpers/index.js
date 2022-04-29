@@ -1,2 +1,2 @@
 export { checkIfAllInputsAreNotEmpty } from "./authHelpers";
-export { getPinnedUnpinnedNotes } from "./notesHelpers";
+export { getPinnedUnpinnedNotes, ifNoteEditNoteDataDiffer } from "./notesHelpers";

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth, useNotes } from "../../context";
-import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
+import {
+  AsideNav,
+  CreateNoteModal,
+  FilterRow,
+} from "../../components";
 import "./Home.css";
 
 export function Home() {
@@ -23,6 +27,7 @@ export function Home() {
 
   const [labelModalVisible, setIsLabelModalVisible] = useState(false);
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
+  const [editNoteModalVisible, setEditNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
   const getPageTitle = (pathname) => {
@@ -109,7 +114,7 @@ export function Home() {
           ) : null}
         </section>
         <FilterRow />
-        <Outlet />
+        <Outlet context={[setIsLabelModalVisible]} />
       </main>
     </div>
   );
