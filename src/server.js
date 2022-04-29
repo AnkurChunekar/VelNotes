@@ -28,7 +28,6 @@ import {
 } from "./backend/controllers/TrashController";
 import { users } from "./backend/db/users";
 import { v4 as uuid } from "uuid";
-import { formatDate } from "./backend/utils/authUtils";
 
 export function makeServer({ environment = "development" } = {}) {
   const server = new Server({

@@ -1,16 +1,41 @@
 import { useState } from "react";
 import HtmlParser from "react-html-parser/lib/HtmlParser";
-import { useNotes } from "../../context/notes-context";
+import { useNotes, useTrash } from "../../context";
 import { getDateString, getTimeString } from "../../helpers/notesHelpers";
 import { EditNoteModal } from "../modals/EditNoteModal";
 import "./NoteCard.css";
 
-export function NoteCard({ noteData }) {
+export function NoteCard({ noteData, currentPage = "notes" }) {
   const { title, content, date } = noteData;
   const { toggleNotePinService } = useNotes();
+  const {
+    moveToTrashService,
+    deleteFromTrashService,
+    restoreFromTrashService,
+  } = useTrash();
   const [editNoteModalVisible, setEditNoteModalVisible] = useState(false);
+  const [isDeleteNoteLoading, setDeleteNoteLoading] = useState(false);
+
   const togglePinClick = () => {
     toggleNotePinService(noteData);
+  };
+
+  const moveToTrashClick = () => {
+    setDeleteNoteLoading(true);
+    switch (currentPage) {
+      case "notes":
+        moveToTrashService(noteData, setDeleteNoteLoading);
+        break;
+      case "trash":
+        deleteFromTrashService(noteData._id, setDeleteNoteLoading);
+        break;
+      default:
+        moveToTrashService(noteData, setDeleteNoteLoading);
+    }
+  };
+
+  const restoreNoteClick = () => {
+    restoreFromTrashService(noteData, setDeleteNoteLoading);
   };
 
   return (
@@ -26,7 +51,12 @@ export function NoteCard({ noteData }) {
             />
           </button>
         </header>
-        <div className="content" onClick={() => setEditNoteModalVisible(true)}>
+        <div
+          className="content"
+          onClick={() =>
+            currentPage !== "trash" && setEditNoteModalVisible(true)
+          }
+        >
           {HtmlParser(content)}
         </div>
         <footer className="footer flex ai-center jc-space-b">
@@ -34,19 +64,40 @@ export function NoteCard({ noteData }) {
             {getDateString(date)} | {getTimeString(date)}
           </div>
           <div className="actions">
-            <button title="Move to Trash" className="btn-unset">
-              <i className="icon fa-solid fa-trash" />
-            </button>
             <button
-              onClick={() => setEditNoteModalVisible(true)}
-              title="Edit"
+              disabled={isDeleteNoteLoading ? true : false}
+              onClick={moveToTrashClick}
+              title="Delete"
               className="btn-unset"
             >
-              <i className="icon fa-solid fa-pen-to-square" />
+              <i className="icon fa-solid fa-trash" />
             </button>
-            <button title="Archive" className="btn-unset">
-              <i className="icon fa-solid fa-box-archive" />
-            </button>
+
+            {currentPage === "notes" ? (
+              <>
+                <button
+                  onClick={() => setEditNoteModalVisible(true)}
+                  title="Edit"
+                  className="btn-unset"
+                >
+                  <i className="icon fa-solid fa-pen-to-square" />
+                </button>
+                <button title="Archive" className="btn-unset">
+                  <i className="icon fa-solid fa-box-archive" />
+                </button>
+              </>
+            ) : null}
+
+            {currentPage === "trash" && (
+              <button
+                disabled={isDeleteNoteLoading ? true : false}
+                onClick={restoreNoteClick}
+                title="Restore"
+                className="btn-unset"
+              >
+                <i className="icon fa-solid fa-trash-arrow-up" />
+              </button>
+            )}
           </div>
         </footer>
       </div>
