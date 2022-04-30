@@ -44,7 +44,7 @@ export function Notes() {
 
       {pinnedNotes.length < 1 && unPinnedNotes.length < 1 ? (
         <div className="center-align-text fs-4 m-xs">
-          You Haven't added any notes yet.
+          No Notes Found!
         </div>
       ) : null}
     </>

@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth, useNotes } from "../../context";
-import {
-  AsideNav,
-  CreateNoteModal,
-  FilterRow,
-} from "../../components";
+import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
 import "./Home.css";
 
 export function Home() {
@@ -27,7 +23,6 @@ export function Home() {
 
   const [labelModalVisible, setIsLabelModalVisible] = useState(false);
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
-  const [editNoteModalVisible, setEditNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
   const getPageTitle = (pathname) => {
@@ -97,12 +92,14 @@ export function Home() {
             {getPageTitle(pathname)}{" "}
             <span className="gray-text fs-4">(12)</span>
           </h1>
-          <div className="m-left-auto">
+          <div className="m-left-auto flex ai-center c-gap-1rem">
+            <FilterRow />
+
             <button
               onClick={() => setCreateNoteModalVisible(true)}
               className="btn btn-primary"
             >
-              <i className="fas fa-plus" /> Create New Note
+              <i className="fas fa-plus" /> Create Note
             </button>
           </div>
           {createNoteModalVisible ? (
@@ -113,7 +110,6 @@ export function Home() {
             />
           ) : null}
         </section>
-        <FilterRow />
         <Outlet context={[setIsLabelModalVisible]} />
       </main>
     </div>
