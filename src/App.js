@@ -1,15 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import {
-  Landing,
-  Login,
-  Signup,
-  Home,
-  Notes,
-  Archive,
-  Trash,
-} from "./pages";
-import { RequiresAuth } from "./components"
+import { Landing, Login, Signup, Home, Notes, Archive, Trash } from "./pages";
+import { RequiresAuth } from "./components";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 

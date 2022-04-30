@@ -37,9 +37,9 @@
 .note .content {
   height: 175px;
   overflow: hidden;
-  display: -webkit-box;
   -webkit-line-clamp: 9;
   -webkit-box-orient: vertical;
+  display: -webkit-box;
   margin-top: 1rem;
   line-height: 1.4;
   font-size: 1.4rem;
@@ -52,10 +52,12 @@
 
 .note .footer {
   margin-top: auto;
+  row-gap: 1rem;
 }
 
 .note .date {
   font-size: 1.2rem;
+  color: var(--plain-gray);
 }
 
 .note .fa-map-pin.active {
