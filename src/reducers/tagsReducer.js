@@ -7,26 +7,26 @@ const initialTagsState = {
     { id: uuid(), tagName: "home" },
   ],
   currentTag: "",
+  tagsModalVisible: false,
 };
-
-const cloneStateAndAddTag = (state, tagName) => {
-  const clone = deepCloneObject(state);
-  clone.tags.push({id: uuid(), tagName: tagName});
-  return clone;
-}
-
-const cloneStateAndRemoveTag = (state, tagId) => {
-  const clone = deepCloneObject(state);
-  clone.tags = clone.tags.filter(tag => tag.id !== tagId);
-  return clone;
-}
 
 const tagsReducer = (state, action) => {
   switch (action.type) {
-    case "ADD_TAG":
-      return cloneStateAndAddTag(state, action.payload.tagName);
-    case "REMOVE_TAG":
-      return cloneStateAndRemoveTag(state, action.payload.id);
+    case "ADD_TAG": {
+      const clone = deepCloneObject(state);
+      clone.tags.push({ id: uuid(), tagName: action.payload.tagName });
+      return clone;
+    }
+    case "REMOVE_TAG": {
+      const clone = deepCloneObject(state);
+      clone.tags = clone.tags.filter((tag) => tag.id !== action.payload.id);
+      return clone;
+    }
+    case "TOGGLE_TAG_MODAL_VISIBILITY": {
+      const clone = deepCloneObject(state);
+      clone.tagsModalVisible = !state.tagsModalVisible;
+      return clone;
+    }
     default:
       return state;
   }

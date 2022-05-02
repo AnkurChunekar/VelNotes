@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth, useTags } from "../../context";
-import { EditLabelModal } from "../modals/EditLabelModal";
+import { EditTagsModal } from "../modals/EditTagsModal";
 import { capitalizeString } from "../../helpers";
 import { logoWhite } from "../../assets";
 import "./AsideNav.css";
 
-export function AsideNav({ labelModalVisible, setIsLabelModalVisible }) {
+export function AsideNav() {
   const [sideNavCompressed, setSideNavCompressed] = useState(false);
   const { userLogoutService } = useAuth();
 
   const {
-    tagsState: { tags },
+    tagsState: { tags, tagsModalVisible },
+    tagsDispatch,
   } = useTags();
 
   return (
@@ -35,7 +36,7 @@ export function AsideNav({ labelModalVisible, setIsLabelModalVisible }) {
         </div>
       </div>
 
-      <NavLink to="/home/notes" className="item">
+      <NavLink to="/notes" className="item">
         <span>
           <i className="fa-solid fa-lightbulb" />
         </span>
@@ -43,7 +44,7 @@ export function AsideNav({ labelModalVisible, setIsLabelModalVisible }) {
       </NavLink>
 
       {tags.map((item) => (
-        <NavLink key={item.id} to="/home/tags" className="item">
+        <NavLink key={item.id} to={`/tags/${item.tagName}`} className="item">
           <span>
             <i className="fa-solid fa-tag" />
           </span>
@@ -51,21 +52,24 @@ export function AsideNav({ labelModalVisible, setIsLabelModalVisible }) {
         </NavLink>
       ))}
 
-      <button onClick={() => setIsLabelModalVisible(true)} className="item">
+      <button
+        onClick={() => tagsDispatch({ type: "TOGGLE_TAG_MODAL_VISIBILITY" })}
+        className="item"
+      >
         <span>
           <i className="fa-solid fa-pen" />
         </span>
         <span className="text"> Edit Tags </span>
       </button>
 
-      <NavLink to="/home/archive" className="item">
+      <NavLink to="/archive" className="item">
         <span>
           <i className="fa-solid fa-box-archive" />
         </span>
         <span className="text"> Archive </span>
       </NavLink>
 
-      <NavLink to="/home/trash" className="item">
+      <NavLink to="/trash" className="item">
         <span>
           <i className="fa-solid fa-trash" />
         </span>
@@ -79,12 +83,7 @@ export function AsideNav({ labelModalVisible, setIsLabelModalVisible }) {
         <span className="text"> Logout </span>
       </button>
 
-      {labelModalVisible ? (
-        <EditLabelModal
-          labelModalVisible={labelModalVisible}
-          setIsLabelModalVisible={setIsLabelModalVisible}
-        />
-      ) : null}
+      {tagsModalVisible ? <EditTagsModal /> : null}
     </nav>
   );
 }

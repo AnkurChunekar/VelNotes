@@ -8,7 +8,7 @@ import "./NoteCard.css";
 export function NoteCard({ noteData, currentPage = "notes" }) {
   const { title, content, date } = noteData;
   const { toggleNotePinService } = useNotes();
-  const { moveToArchiveService, moveArchiveToTrashService } = useArchive();
+  const { moveToArchiveService, moveArchiveToTrashService, restoreFromArchiveService } = useArchive();
   const {
     moveToTrashService,
     deleteFromTrashService,
@@ -61,6 +61,7 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
             />
           </button>
         </header>
+
         <div
           className="content"
           onClick={() =>
@@ -69,6 +70,15 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
         >
           {HtmlParser(content)}
         </div>
+
+        <div className="tag-container flex c-gap-1rem flex-wrap">
+          {noteData.tags.map((item) => (
+            <div key={item} className="tag">
+              {item}
+            </div>
+          ))}
+        </div>
+
         <footer className="footer flex ai-center jc-space-b">
           <div className="date">
             {getDateString(date)} | {getTimeString(date)}
@@ -88,9 +98,6 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
                 <button title="Color" className="btn-unset">
                   <i className="icon fa-solid fa-palette"></i>
                 </button>
-                <button title="Tag" className="btn-unset">
-                <i className="icon fa-solid fa-tag"></i>
-                </button>
                 <button
                   onClick={moveToArchiveClick}
                   disabled={isArchiveNoteLoading}
@@ -100,6 +107,16 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
                   <i className="icon fa-solid fa-box-archive" />
                 </button>
               </>
+            ) : null}
+
+            {currentPage === "archive" ? (
+              <button
+                onClick={() => restoreFromArchiveService(noteData)}
+                title="Unarchive"
+                className="btn-unset"
+              >
+                <i className="icon fa-solid fa-folder-minus"></i>
+              </button>
             ) : null}
 
             {currentPage === "trash" && (
@@ -115,6 +132,7 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
           </div>
         </footer>
       </div>
+
       {editNoteModalVisible ? (
         <EditNoteModal
           noteData={noteData}
