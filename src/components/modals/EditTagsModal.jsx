@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { useTags } from "../../context";
 import { capitalizeString } from "../../helpers";
 import "./Modals.css";
@@ -7,17 +8,28 @@ export function EditTagsModal() {
   const {
     tagsState: { tags },
     tagsDispatch,
+    deleteNoteTagService,
   } = useTags();
 
   const [inputTagName, setInputTagName] = useState("");
 
-  const removeTagHandler = (id) => {
+  const removeTagHandler = ({ id, tagName }) => {
+    deleteNoteTagService(tagName);
     tagsDispatch({ type: "REMOVE_TAG", payload: { id } });
   };
 
   const AddNewTagClick = () => {
-    tagsDispatch({type: "ADD_TAG", payload: {tagName: inputTagName}});
-    setInputTagName("");
+    if (
+      !tags.some((item) => item.tagName === inputTagName.trim().toLowerCase())
+    ) {
+      tagsDispatch({
+        type: "ADD_TAG",
+        payload: { tagName: inputTagName.trim().toLowerCase() },
+      });
+      setInputTagName("");
+    } else {
+      toast.error("Tag already exists");
+    }
   };
 
   return (
@@ -35,7 +47,7 @@ export function EditTagsModal() {
               placeholder="New Label..."
             />
             <button
-            title="Add New Tag"
+              title="Add New Tag"
               disabled={inputTagName.length > 8 || inputTagName.length < 1}
               onClick={AddNewTagClick}
               className="p-xxs btn-unset icon"
@@ -55,8 +67,8 @@ export function EditTagsModal() {
                   {capitalizeString(item.tagName)}
                 </span>
                 <button
-                title="Delete Tag"
-                  onClick={() => removeTagHandler(item.id)}
+                  title="Delete Tag"
+                  onClick={() => removeTagHandler(item)}
                   className="p-xs btn-unset icon"
                 >
                   <i className="fas fa-times fs-4" />
@@ -67,7 +79,9 @@ export function EditTagsModal() {
         </div>
         <footer className="p-xs">
           <button
-            onClick={() => tagsDispatch({type: "TOGGLE_TAG_MODAL_VISIBILITY"}) }
+            onClick={() =>
+              tagsDispatch({ type: "TOGGLE_TAG_MODAL_VISIBILITY" })
+            }
             className="btn btn-secondary"
           >
             Close
