@@ -53,7 +53,7 @@ export function makeServer({ environment = "development" } = {}) {
               content:
                 "<p>Many of life's failures are people who did not realize how close they were to success when they gave up. -Thomas A. Edison</p>",
               isPinned: false,
-              color: "red",
+              color: "",
               tags: ["work"],
               priority: "low",
               date: "2022-04-28T21:42:05+05:30",
