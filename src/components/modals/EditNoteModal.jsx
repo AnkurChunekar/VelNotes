@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useOutletContext } from "react-router-dom";
 import { formatDate } from "../../backend/utils/authUtils";
 import { RichTextEditor } from "../editor/RichTextEditor";
-import { useNotes } from "../../context/notes-context";
-import { ifNoteEditNoteDataDiffer } from "../../helpers";
+import { useNotes, useTags } from "../../context";
+import { ifNoteEditNoteDataDiffer, capitalizeString } from "../../helpers";
 import "./Modals.css";
 
 export function EditNoteModal({ noteData, setEditNoteModalVisible }) {
@@ -14,8 +13,9 @@ export function EditNoteModal({ noteData, setEditNoteModalVisible }) {
   };
 
   const [inputData, setInputData] = useState(initialInputData);
-  const [setIsLabelModalVisible] = useOutletContext();
   const { editNoteService } = useNotes();
+  const { tagsDispatch, tagsState: {tags} } = useTags();
+
 
   const saveEditedNoteClick = () => {
     if (inputData.title.trim() !== "") {
@@ -63,18 +63,22 @@ export function EditNoteModal({ noteData, setEditNoteModalVisible }) {
         </section>
 
         <section className="options-container flex ai-center jc-space-b flex-wrap p-md1">
-          <div>
-            <label htmlFor="priority">Label: </label>
+        <div>
+            <label htmlFor="tag">Tag: </label>
             <select
               value={inputData.label}
               onChange={(e) =>
                 setInputData((data) => ({ ...data, tags: [e.target.value] }))
               }
-              name="priority"
-              id="priority"
+              name="tag"
+              id="tag"
             >
-              <option value="work">Work</option>
-              <option value="home">Home</option>
+              <option value="">None</option>
+              {tags.map(({ id, tagName }) => (
+                <option key={id} value={tagName}>
+                  {capitalizeString(tagName)}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -113,12 +117,10 @@ export function EditNoteModal({ noteData, setEditNoteModalVisible }) {
 
         <footer className="modal-actions p-md1 flex ai-center">
           <button
-            onClick={() => {
-              setIsLabelModalVisible(true);
-            }}
+            onClick={() =>  tagsDispatch({type: "TOGGLE_TAG_MODAL_VISIBILITY"})}
             className="btn btn-secondary"
           >
-            Add Label
+            Add Tag
           </button>
           <button onClick={saveEditedNoteClick} className="btn btn-primary">
             {" "}

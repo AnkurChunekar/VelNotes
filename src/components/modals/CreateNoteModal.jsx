@@ -2,14 +2,18 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { formatDate } from "../../backend/utils/authUtils";
 import { RichTextEditor } from "../editor/RichTextEditor";
-import { useNotes } from "../../context/notes-context";
+import { useNotes, useTags } from "../../context";
+import { capitalizeString } from "../../helpers";
 import "./Modals.css";
 
 export function CreateNoteModal({
   setCreateNoteModalVisible,
   setIsLabelModalVisible,
 }) {
-  const currentDate = new Date();
+  const {
+    tagsState: { tags },
+    tagsDispatch,
+  } = useTags();
 
   const initialInputData = {
     title: "",
@@ -26,7 +30,7 @@ export function CreateNoteModal({
   const [inputData, setInputData] = useState(initialInputData);
 
   const addNewNoteHandler = () => {
-    if(inputData.title.trim() !== "") {
+    if (inputData.title.trim() !== "") {
       setCreateNoteModalVisible(false);
       addNewNoteService(inputData);
     } else {
@@ -69,17 +73,21 @@ export function CreateNoteModal({
 
         <section className="options-container flex ai-center jc-space-b flex-wrap p-md1">
           <div>
-            <label htmlFor="priority">Label: </label>
+            <label htmlFor="tag">Tag: </label>
             <select
               value={inputData.label}
               onChange={(e) =>
                 setInputData((data) => ({ ...data, tags: [e.target.value] }))
               }
-              name="priority"
-              id="priority"
+              name="tag"
+              id="tag"
             >
-              <option value="work">Work</option>
-              <option value="home">Home</option>
+              <option value="">None</option>
+              {tags.map(({ id, tagName }) => (
+                <option key={id} value={tagName}>
+                  {capitalizeString(tagName)}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -119,7 +127,7 @@ export function CreateNoteModal({
         <footer className="modal-actions p-md1 flex ai-center">
           <button
             onClick={() => {
-              setIsLabelModalVisible(true);
+              tagsDispatch({ type: "TOGGLE_TAG_MODAL_VISIBILITY" });
             }}
             className="btn btn-secondary"
           >

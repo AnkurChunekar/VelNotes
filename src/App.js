@@ -4,12 +4,13 @@ import {
   Landing,
   Login,
   Signup,
-  Home,
+  MainWrapper,
   Notes,
   Archive,
   Trash,
+  TagPage,
 } from "./pages";
-import { RequiresAuth } from "./components"
+import { RequiresAuth } from "./components";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -30,23 +31,45 @@ function App() {
       />
 
       <div className="App">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/home"
-            element={
-              <RequiresAuth>
-                <Home />
-              </RequiresAuth>
-            }
-          >
-            <Route path="notes" element={<Notes />} />
-            <Route path="archive" element={<Archive />} />
-            <Route path="trash" element={<Trash />} />
-          </Route>
-        </Routes>
+        <MainWrapper>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/notes"
+              element={
+                <RequiresAuth>
+                  <Notes />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="/archive"
+              element={
+                <RequiresAuth>
+                  <Archive />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="/trash"
+              element={
+                <RequiresAuth>
+                  <Trash />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="/tags/:tagName"
+              element={
+                <RequiresAuth>
+                  <TagPage />
+                </RequiresAuth>
+              }
+            />
+          </Routes>
+        </MainWrapper>
       </div>
     </>
   );

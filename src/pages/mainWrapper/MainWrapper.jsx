@@ -1,54 +1,38 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth, useNotes } from "../../context";
-import {
-  AsideNav,
-  CreateNoteModal,
-  FilterRow,
-} from "../../components";
-import "./Home.css";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useAuth } from "../../context";
+import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
+import "./MainWrapper.css";
 
-export function Home() {
-  const navigate = useNavigate();
+export function MainWrapper({ children }) {
   const { pathname } = useLocation();
   const { authState, userLogoutService } = useAuth();
-  const { getNotesData } = useNotes();
+
   const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
-  useEffect(() => {
-    if (pathname === "/home") {
-      navigate("/home/notes");
-    }
-  }, []);
-
-  useEffect(() => {
-    getNotesData();
-  }, []);
-
-  const [labelModalVisible, setIsLabelModalVisible] = useState(false);
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
-  const [editNoteModalVisible, setEditNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
   const getPageTitle = (pathname) => {
     switch (pathname) {
-      case "/home/notes":
+      case "/notes":
         return "Notes";
-      case "/home/trash":
+      case "/trash":
         return "Trash";
-      case "/home/archive":
+      case "/archive":
         return "Archive";
       default:
         return "Notes";
     }
   };
 
-  return (
+  const publicPathnames = ["/", "/login", "/signup"];
+
+  return publicPathnames.includes(pathname) ? (
+    <> {children} </>
+  ) : (
     <div className="flex page-container">
-      <AsideNav
-        labelModalVisible={labelModalVisible}
-        setIsLabelModalVisible={setIsLabelModalVisible}
-      />
+      <AsideNav />
 
       {/* Header for notes */}
 
@@ -70,14 +54,17 @@ export function Home() {
           >
             <div className="flex flex-column ai-end jc-center m-xs m-tb0">
               <span className="gray-text fs-6"> Welcome </span>
-              <span>
-                {user.firstName + " " + user.lastName}{" "}
-                <i
-                  className={`fas fa-caret-${
-                    accountMenuVisible ? "up" : "down"
-                  }`}
-                />
-              </span>
+
+              {user ? (
+                <span>
+                  {user.firstName + " " + user.lastName}{" "}
+                  <i
+                    className={`fas fa-caret-${
+                      accountMenuVisible ? "up" : "down"
+                    }`}
+                  />
+                </span>
+              ) : null}
             </div>
             <img
               className="profile-img"
@@ -97,24 +84,23 @@ export function Home() {
             {getPageTitle(pathname)}{" "}
             <span className="gray-text fs-4">(12)</span>
           </h1>
-          <div className="m-left-auto">
+          <div className="m-left-auto flex ai-center c-gap-1rem">
+            <FilterRow />
+
             <button
               onClick={() => setCreateNoteModalVisible(true)}
               className="btn btn-primary"
             >
-              <i className="fas fa-plus" /> Create New Note
+              <i className="fas fa-plus" /> Create Note
             </button>
           </div>
           {createNoteModalVisible ? (
             <CreateNoteModal
-              labelModalVisible={labelModalVisible}
-              setIsLabelModalVisible={setIsLabelModalVisible}
               setCreateNoteModalVisible={setCreateNoteModalVisible}
             />
           ) : null}
         </section>
-        <FilterRow />
-        <Outlet context={[setIsLabelModalVisible]} />
+        {children}
       </main>
     </div>
   );

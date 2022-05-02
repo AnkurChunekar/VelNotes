@@ -1,5 +1,5 @@
 .note {
-  height: 280px;
+  height: max-content;
   border-radius: 5px;
   background-color: var(--plain-white);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -35,27 +35,37 @@
 }
 
 .note .content {
-  height: 175px;
+  height: 100px;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 9;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
-  margin-top: 1rem;
+  display: -webkit-box;
   line-height: 1.4;
   font-size: 1.4rem;
   cursor: pointer;
+  margin: 1.5rem 0;
 }
 
 .note .content img {
   max-width: 100%;
 }
 
+.note .tag-container .tag {
+  width: max-content;
+  background: lightgray;
+  padding: 4px 10px;
+  border-radius: var(--round-radius);
+  margin: 1rem 0;
+}
+
 .note .footer {
   margin-top: auto;
+  row-gap: 1rem;
 }
 
 .note .date {
   font-size: 1.2rem;
+  color: var(--plain-gray);
 }
 
 .note .fa-map-pin.active {

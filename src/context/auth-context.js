@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
             rememberUser: userData.rememberUser,
           },
         });
-        navigate(location?.state?.from?.pathname || "/home/notes", {
+        navigate(location?.state?.from?.pathname || "/notes", {
           replace: true,
         });
       }
@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
             token: response.data.encodedToken,
           },
         });
-        navigate(location?.state?.from?.pathname || "/home/notes", {
+        navigate(location?.state?.from?.pathname || "/notes", {
           replace: true,
         });
       }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import HtmlParser from "react-html-parser/lib/HtmlParser";
-import { useNotes, useTrash } from "../../context";
+import { useArchive, useNotes, useTrash } from "../../context";
 import { getDateString, getTimeString } from "../../helpers/notesHelpers";
 import { EditNoteModal } from "../modals/EditNoteModal";
 import "./NoteCard.css";
@@ -8,6 +8,7 @@ import "./NoteCard.css";
 export function NoteCard({ noteData, currentPage = "notes" }) {
   const { title, content, date } = noteData;
   const { toggleNotePinService } = useNotes();
+  const { moveToArchiveService, moveArchiveToTrashService, restoreFromArchiveService } = useArchive();
   const {
     moveToTrashService,
     deleteFromTrashService,
@@ -15,6 +16,7 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
   } = useTrash();
   const [editNoteModalVisible, setEditNoteModalVisible] = useState(false);
   const [isDeleteNoteLoading, setDeleteNoteLoading] = useState(false);
+  const [isArchiveNoteLoading, setArchiveNoteLoading] = useState(false);
 
   const togglePinClick = () => {
     toggleNotePinService(noteData);
@@ -29,6 +31,9 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
       case "trash":
         deleteFromTrashService(noteData._id, setDeleteNoteLoading);
         break;
+      case "archive":
+        moveArchiveToTrashService(noteData);
+        break;
       default:
         moveToTrashService(noteData, setDeleteNoteLoading);
     }
@@ -36,6 +41,11 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
 
   const restoreNoteClick = () => {
     restoreFromTrashService(noteData, setDeleteNoteLoading);
+  };
+
+  // Archive handlers
+  const moveToArchiveClick = () => {
+    moveToArchiveService(noteData, setArchiveNoteLoading);
   };
 
   return (
@@ -51,6 +61,7 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
             />
           </button>
         </header>
+
         <div
           className="content"
           onClick={() =>
@@ -59,6 +70,15 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
         >
           {HtmlParser(content)}
         </div>
+
+        <div className="tag-container flex c-gap-1rem flex-wrap">
+          {noteData.tags.map((item) => (
+            <div key={item} className="tag">
+              {item}
+            </div>
+          ))}
+        </div>
+
         <footer className="footer flex ai-center jc-space-b">
           <div className="date">
             {getDateString(date)} | {getTimeString(date)}
@@ -75,17 +95,28 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
 
             {currentPage === "notes" ? (
               <>
+                <button title="Color" className="btn-unset">
+                  <i className="icon fa-solid fa-palette"></i>
+                </button>
                 <button
-                  onClick={() => setEditNoteModalVisible(true)}
-                  title="Edit"
+                  onClick={moveToArchiveClick}
+                  disabled={isArchiveNoteLoading}
+                  title="Archive"
                   className="btn-unset"
                 >
-                  <i className="icon fa-solid fa-pen-to-square" />
-                </button>
-                <button title="Archive" className="btn-unset">
                   <i className="icon fa-solid fa-box-archive" />
                 </button>
               </>
+            ) : null}
+
+            {currentPage === "archive" ? (
+              <button
+                onClick={() => restoreFromArchiveService(noteData)}
+                title="Unarchive"
+                className="btn-unset"
+              >
+                <i className="icon fa-solid fa-folder-minus"></i>
+              </button>
             ) : null}
 
             {currentPage === "trash" && (
@@ -101,6 +132,7 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
           </div>
         </footer>
       </div>
+
       {editNoteModalVisible ? (
         <EditNoteModal
           noteData={noteData}
