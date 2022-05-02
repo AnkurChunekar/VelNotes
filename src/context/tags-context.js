@@ -1,7 +1,4 @@
 import { useContext, createContext, useReducer } from "react";
-// import axios from "axios";
-// import { toast } from "react-toastify";
-// import { useAuth, useNotes, useTrash } from "../context";
 import { tagsReducer, initialTagsState } from "../reducers";
 
 const TagsContext = createContext(initialTagsState);
