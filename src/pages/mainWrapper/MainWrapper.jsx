@@ -1,49 +1,47 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useAuth, useNotes } from "../../context";
-import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
-import "./Home.css";
+import {
+  AsideNav,
+  CreateNoteModal,
+  FilterRow,
+} from "../../components";
+import "./MainWrapper.css";
 
-export function Home() {
-  const navigate = useNavigate();
+export function MainWrapper({ children }) {
   const { pathname } = useLocation();
   const { authState, userLogoutService } = useAuth();
   const { getNotesData } = useNotes();
-  const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
-  useEffect(() => {
-    if (pathname === "/home") {
-      navigate("/home/notes");
-    }
-  }, []);
+  const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     getNotesData();
   }, []);
 
-  const [labelModalVisible, setIsLabelModalVisible] = useState(false);
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
   const getPageTitle = (pathname) => {
     switch (pathname) {
-      case "/home/notes":
+      case "/notes":
         return "Notes";
-      case "/home/trash":
+      case "/trash":
         return "Trash";
-      case "/home/archive":
+      case "/archive":
         return "Archive";
       default:
         return "Notes";
     }
   };
 
-  return (
+  const publicPathnames = ["/", "/login", "/signup"];
+
+  return publicPathnames.includes(pathname) ? (
+    <> {children} </>
+  ) : (
     <div className="flex page-container">
-      <AsideNav
-        labelModalVisible={labelModalVisible}
-        setIsLabelModalVisible={setIsLabelModalVisible}
-      />
+      <AsideNav />
 
       {/* Header for notes */}
 
@@ -104,13 +102,11 @@ export function Home() {
           </div>
           {createNoteModalVisible ? (
             <CreateNoteModal
-              labelModalVisible={labelModalVisible}
-              setIsLabelModalVisible={setIsLabelModalVisible}
               setCreateNoteModalVisible={setCreateNoteModalVisible}
             />
           ) : null}
         </section>
-        <Outlet context={[setIsLabelModalVisible]} />
+        {children}
       </main>
     </div>
   );

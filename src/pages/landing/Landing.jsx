@@ -29,7 +29,7 @@ export function Landing() {
               Inspiration strikes anywhere, VelNotes helps you capture, organize
               and save you ideas, across all platforms.
             </p>
-            <Link to="/home/notes">
+            <Link to="/notes">
               <button className="btn btn-primary">Get Started</button>
             </Link>
           </div>
