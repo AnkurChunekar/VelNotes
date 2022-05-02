@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context";
 import { homepageGif, logoBlue } from "../../assets";
 import "./Landing.css";
 
 export function Landing() {
+
+const { authState } = useAuth();
+const token = authState.token || localStorage.getItem("token");
+
   return (
     <>
       <nav className="flex ai-center jc-space-b homepage-nav flex-wrap">
@@ -29,7 +34,7 @@ export function Landing() {
               Inspiration strikes anywhere, VelNotes helps you capture, organize
               and save you ideas, across all platforms.
             </p>
-            <Link to="/notes">
+            <Link to={token ? "/notes" : "/login"}>
               <button className="btn btn-primary">Get Started</button>
             </Link>
           </div>

@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useNotes } from "../../context";
-import {
-  AsideNav,
-  CreateNoteModal,
-  FilterRow,
-} from "../../components";
+import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
 import "./MainWrapper.css";
 
 export function MainWrapper({ children }) {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { authState, userLogoutService } = useAuth();
   const { getNotesData } = useNotes();
 
@@ -63,14 +60,17 @@ export function MainWrapper({ children }) {
           >
             <div className="flex flex-column ai-end jc-center m-xs m-tb0">
               <span className="gray-text fs-6"> Welcome </span>
-              <span>
-                {user.firstName + " " + user.lastName}{" "}
-                <i
-                  className={`fas fa-caret-${
-                    accountMenuVisible ? "up" : "down"
-                  }`}
-                />
-              </span>
+
+              {user ? (
+                <span>
+                  {user.firstName + " " + user.lastName}{" "}
+                  <i
+                    className={`fas fa-caret-${
+                      accountMenuVisible ? "up" : "down"
+                    }`}
+                  />
+                </span>
+              ) : null}
             </div>
             <img
               className="profile-img"
