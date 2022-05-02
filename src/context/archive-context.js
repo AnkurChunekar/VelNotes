@@ -63,7 +63,7 @@ const ArchiveProvider = ({ children }) => {
     }
   };
 
-  // move to archive -> trash
+  // move from archive -> trash
   const moveArchiveToTrashService = async (note, setLoading = () => {}) => {
     try {
       const response = await axios.post(
@@ -91,12 +91,40 @@ const ArchiveProvider = ({ children }) => {
     }
   };
 
+  // Restore from archives
+  const restoreFromArchiveService = async (note) => {
+    try {
+      const response = await axios.post(
+        `/api/archives/restore/${note._id}`,
+        { note },
+        { headers: { authorization: token } }
+      );
+
+      if (response.status === 200) {
+        notesDispatch({
+          type: "UPDATE_NOTES",
+          payload: { notes: response.data.notes },
+        });
+
+        archiveDispatch({
+          type: "UPDATE_ARCHIVE",
+          payload: { archive: response.data.archives },
+        });
+
+        toast.success("Note Restored!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const value = {
     archiveDispatch,
     archiveState,
     getArchiveData,
     moveToArchiveService,
     moveArchiveToTrashService,
+    restoreFromArchiveService,
   };
 
   return (
