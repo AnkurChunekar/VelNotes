@@ -3,7 +3,7 @@ import { useTags } from "../../context";
 import { capitalizeString } from "../../helpers";
 import "./Modals.css";
 
-export function EditLabelModal({ setIsLabelModalVisible }) {
+export function EditTagsModal() {
   const {
     tagsState: { tags },
     tagsDispatch,
@@ -24,7 +24,7 @@ export function EditLabelModal({ setIsLabelModalVisible }) {
     <div className="modal-container label-modal-container flex-center active">
       <div className="modal label-modal m-md1">
         <div className="edit-labels p-md1">
-          <span className="fs-4"> Edit Labels </span>
+          <span className="fs-4"> Edit Tags </span>
 
           <div className="input-wrapper input-w-btn m-xs m-rl0">
             <input
@@ -67,7 +67,7 @@ export function EditLabelModal({ setIsLabelModalVisible }) {
         </div>
         <footer className="p-xs">
           <button
-            onClick={() => setIsLabelModalVisible(false)}
+            onClick={() => tagsDispatch({type: "TOGGLE_TAG_MODAL_VISIBILITY"}) }
             className="btn btn-secondary"
           >
             Close
