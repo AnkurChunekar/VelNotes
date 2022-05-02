@@ -1,20 +1,14 @@
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth, useNotes } from "../../context";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useAuth } from "../../context";
 import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
 import "./MainWrapper.css";
 
 export function MainWrapper({ children }) {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const { authState, userLogoutService } = useAuth();
-  const { getNotesData } = useNotes();
 
   const user = authState.user || JSON.parse(localStorage.getItem("user"));
-
-  useEffect(() => {
-    getNotesData();
-  }, []);
 
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);

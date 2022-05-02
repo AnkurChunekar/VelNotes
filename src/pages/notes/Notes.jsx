@@ -1,9 +1,15 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useNotes } from "../../context";
 import { NoteCard } from "../../components";
 import { getPinnedUnpinnedNotes } from "../../helpers";
 
 export function Notes() {
+  const { getNotesData } = useNotes();
+
+  useEffect(() => {
+    getNotesData();
+  });
+
   const {
     notesState: { notes },
   } = useNotes();
@@ -43,9 +49,7 @@ export function Notes() {
       ) : null}
 
       {pinnedNotes.length < 1 && unPinnedNotes.length < 1 ? (
-        <div className="center-align-text fs-4 m-xs">
-          No Notes Found!
-        </div>
+        <div className="center-align-text fs-4 m-xs">No Notes Found!</div>
       ) : null}
     </>
   );
