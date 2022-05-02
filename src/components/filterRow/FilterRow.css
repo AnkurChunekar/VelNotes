@@ -11,11 +11,11 @@
   width: 400px;
   position: absolute;
   background-color: var(--plain-white);
-  top: 17%;
+  top: 148px;
   border-radius: 5px;
   border: solid 1.5px var(--plain-lightgray);
   right: 28px;
-  height: fit-content;
+  height: max-content;
   transition: opacity 0.3s ease;
   box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
 }
