@@ -55,7 +55,7 @@ export function makeServer({ environment = "development" } = {}) {
               isPinned: false,
               color: "",
               tags: ["work"],
-              priority: "low",
+              priority: "high",
               date: "2022-04-28T21:42:05+05:30",
             },
           ],
