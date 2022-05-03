@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../../context";
+import { useAuth, useFilter } from "../../context";
 import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
 import "./MainWrapper.css";
 
@@ -12,6 +12,8 @@ export function MainWrapper({ children }) {
 
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
+
+  const { filterState, filterDispatch } = useFilter();
 
   const getPageTitle = (pathname) => {
     switch (pathname) {
@@ -42,6 +44,13 @@ export function MainWrapper({ children }) {
             <input
               type="text"
               className="p-xxs"
+              value={filterState.searchValue}
+              onChange={(e) =>
+                filterDispatch({
+                  type: "UPDATE_SEARCH_VALUE",
+                  payload: { searchValue: e.target.value },
+                })
+              }
               placeholder="Search All Notes here.."
             />
             <button className="p-xxs btn-unset search-icon">
