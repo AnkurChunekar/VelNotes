@@ -5,13 +5,18 @@
   border: solid 1px var(--plain-lightgray);
 }
 
+.filter-btn span {
+  padding: 2px 0;
+  display: inline-block;
+}
+
 /* filters Menu */
 
 .filter-container .filter-menu {
   width: 350px;
   position: absolute;
   background-color: var(--plain-white);
-  top: 148px;
+  top: 75px;
   border-radius: 5px;
   border: solid 1.5px var(--plain-lightgray);
   right: 28px;

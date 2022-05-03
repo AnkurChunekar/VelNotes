@@ -43,7 +43,7 @@ export function FilterRow() {
         className="filter-btn"
       >
         <i className="fa-solid fa-arrow-up-wide-short" />
-        <span className="m-xxs m-tb0 fs-4">Filters</span>
+        <span className="m-xxs m-tb0">Filters</span>
       </button>
 
       {filtersMenuVisible ? (

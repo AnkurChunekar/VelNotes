@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth, useFilter } from "../../context";
 import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
+import { capitalizeString } from "../../helpers";
 import "./MainWrapper.css";
 
 export function MainWrapper({ children }) {
@@ -16,6 +17,10 @@ export function MainWrapper({ children }) {
   const { filterState, filterDispatch } = useFilter();
 
   const getPageTitle = (pathname) => {
+    if (pathname.includes("/tags")) {
+      return capitalizeString(pathname.replace("/tags/", ""));
+    }
+
     switch (pathname) {
       case "/notes":
         return "Notes";
@@ -89,10 +94,7 @@ export function MainWrapper({ children }) {
           ) : null}
         </header>
         <section className="notes-header flex">
-          <h1 className="fw-600 fs-2">
-            {getPageTitle(pathname)}{" "}
-            <span className="gray-text fs-4">(12)</span>
-          </h1>
+          <h1 className="fw-600 fs-2">{getPageTitle(pathname)}</h1>
           <div className="m-left-auto flex ai-center c-gap-1rem">
             <FilterRow />
 
