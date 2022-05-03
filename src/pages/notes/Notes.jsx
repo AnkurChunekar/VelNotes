@@ -1,20 +1,22 @@
 import { Fragment, useEffect } from "react";
-import { useNotes } from "../../context";
+import { useNotes, useFilter } from "../../context";
 import { NoteCard } from "../../components";
-import { getPinnedUnpinnedNotes } from "../../helpers";
+import { getFilteredData, getPinnedUnpinnedNotes } from "../../helpers";
 
 export function Notes() {
   const { getNotesData } = useNotes();
+  const { filterState } = useFilter();
 
   useEffect(() => {
     getNotesData();
-  });
+  }, []);
 
   const {
     notesState: { notes },
   } = useNotes();
 
-  const { pinnedNotes, unPinnedNotes } = getPinnedUnpinnedNotes(notes);
+  const filteredData = getFilteredData(notes, filterState);
+  const { pinnedNotes, unPinnedNotes } = getPinnedUnpinnedNotes(filteredData);
 
   return (
     <>

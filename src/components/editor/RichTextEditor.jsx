@@ -1,5 +1,6 @@
 import ReactQuill from "react-quill";
 import "../../../node_modules/react-quill/dist/quill.snow.css";
+import "./RichTextEditor.css";
 
 const formats = [
   "bold",
@@ -22,12 +23,12 @@ const modules = {
   ],
 };
 
-export function RichTextEditor({ value, setValue }) {
+export function RichTextEditor({ value, setValue, className }) {
   return (
     <ReactQuill
       formats={formats}
       modules={modules}
-      className="content m-xs m-rl0"
+      className={className}
       value={value}
       placeholder="Add note text here....."
       onChange={setValue}

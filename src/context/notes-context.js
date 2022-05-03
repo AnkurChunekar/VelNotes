@@ -16,6 +16,7 @@ const NotesProvider = ({ children }) => {
 
   const token = authState.token || localStorage.getItem("token");
 
+  // Add note
   const addNewNoteService = async (note) => {
     try {
       const response = await axios.post(
@@ -35,6 +36,7 @@ const NotesProvider = ({ children }) => {
     }
   };
 
+  // Toggle note pin
   const toggleNotePinService = async (note) => {
     try {
       const response = await axios.post(
@@ -55,6 +57,7 @@ const NotesProvider = ({ children }) => {
     }
   };
 
+  // Get all notes
   const getNotesData = async () => {
     try {
       const response = await axios.get(`/api/notes`, {
@@ -71,6 +74,7 @@ const NotesProvider = ({ children }) => {
     }
   };
 
+  // Edit note
   const editNoteService = async (note) => {
     try {
       const response = await axios.post(

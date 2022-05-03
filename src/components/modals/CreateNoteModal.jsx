@@ -3,36 +3,43 @@ import { toast } from "react-toastify";
 import { formatDate } from "../../backend/utils/authUtils";
 import { RichTextEditor } from "../editor/RichTextEditor";
 import { useNotes, useTags } from "../../context";
-import { capitalizeString } from "../../helpers";
+import { capitalizeString, ifNoteEditNoteDataDiffer } from "../../helpers";
 import "./Modals.css";
 
 export function CreateNoteModal({
   setCreateNoteModalVisible,
-  setIsLabelModalVisible,
+  editMode = false,
+  noteData,
 }) {
   const {
     tagsState: { tags },
     tagsDispatch,
   } = useTags();
 
-  const initialInputData = {
-    title: "",
-    content: "<p><br></p>",
-    isPinned: false,
-    color: "green",
-    tags: [],
-    priority: "low",
-    date: formatDate(),
-  };
+  const { addNewNoteService, editNoteService } = useNotes();
 
-  const { addNewNoteService } = useNotes();
+  const initialInputData = editMode
+    ? noteData
+    : {
+        title: "",
+        content: "<p><br></p>",
+        isPinned: false,
+        color: "",
+        tags: [],
+        priority: "low",
+        date: formatDate(),
+      };
 
   const [inputData, setInputData] = useState(initialInputData);
 
   const addNewNoteHandler = () => {
     if (inputData.title.trim() !== "") {
       setCreateNoteModalVisible(false);
-      addNewNoteService(inputData);
+      if (!editMode) {
+        addNewNoteService(inputData);
+      } else if (ifNoteEditNoteDataDiffer(noteData, inputData)) {
+        editNoteService(inputData);
+      }
     } else {
       toast.error("Add a Note Title!");
     }
@@ -52,7 +59,7 @@ export function CreateNoteModal({
           </button>
         </header>
 
-        <section className="modal-body flex flex-column p-md1 p-tb0">
+        <section className="modal-body flex flex-column p-s p-tb0">
           <input
             type="text"
             placeholder="Title...."
@@ -65,6 +72,7 @@ export function CreateNoteModal({
 
           <RichTextEditor
             value={inputData.content}
+            className={`content m-xs m-rl0 ${inputData.color}`}
             setValue={(content) =>
               setInputData((data) => ({ ...data, content }))
             }
@@ -75,7 +83,7 @@ export function CreateNoteModal({
           <div>
             <label htmlFor="tag">Tag: </label>
             <select
-              value={inputData.label}
+              value={inputData.tags[0]}
               onChange={(e) =>
                 setInputData((data) => ({ ...data, tags: [e.target.value] }))
               }
@@ -101,10 +109,11 @@ export function CreateNoteModal({
               name="priority"
               id="priority"
             >
+              <option value="">White</option>
               <option value="blue">Blue</option>
               <option value="green">Green</option>
               <option value="red">Red</option>
-              <option value="orange">Orange</option>
+              <option value="yellow">Yellow</option>
             </select>
           </div>
 
@@ -134,7 +143,13 @@ export function CreateNoteModal({
             Add Label
           </button>
           <button onClick={addNewNoteHandler} className="btn btn-primary">
-            <i className="fas fa-plus" /> Create Note
+            {editMode ? (
+              "Save Note"
+            ) : (
+              <>
+                <i className="fas fa-plus" /> "Create Note"
+              </>
+            )}
           </button>
         </footer>
       </div>

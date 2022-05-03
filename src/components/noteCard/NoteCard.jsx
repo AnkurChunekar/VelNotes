@@ -2,19 +2,23 @@ import { useState } from "react";
 import HtmlParser from "react-html-parser/lib/HtmlParser";
 import { useArchive, useNotes, useTrash } from "../../context";
 import { getDateString, getTimeString } from "../../helpers/notesHelpers";
-import { EditNoteModal } from "../modals/EditNoteModal";
+import { CreateNoteModal } from "../modals/CreateNoteModal";
 import "./NoteCard.css";
 
 export function NoteCard({ noteData, currentPage = "notes" }) {
   const { title, content, date } = noteData;
   const { toggleNotePinService } = useNotes();
-  const { moveToArchiveService, moveArchiveToTrashService, restoreFromArchiveService } = useArchive();
+  const {
+    moveToArchiveService,
+    moveArchiveToTrashService,
+    restoreFromArchiveService,
+  } = useArchive();
   const {
     moveToTrashService,
     deleteFromTrashService,
     restoreFromTrashService,
   } = useTrash();
-  const [editNoteModalVisible, setEditNoteModalVisible] = useState(false);
+  const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [isDeleteNoteLoading, setDeleteNoteLoading] = useState(false);
   const [isArchiveNoteLoading, setArchiveNoteLoading] = useState(false);
 
@@ -50,9 +54,12 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
 
   return (
     <>
-      <div className="note flex flex-column">
-        <header className="flex ai-center jc-space-b">
+      <div className={`note flex flex-column ${noteData.color}`}>
+        <header className="flex ai-center">
           <h2 className="title fw-600"> {title} </h2>
+          <span className="priority m-left-auto">
+            {noteData.priority === "low" ? "LOW" : "HIGH"}
+          </span>
           <button onClick={togglePinClick} title="Pin" className="btn-unset">
             <i
               className={`icon fa-solid fa-map-pin ${
@@ -65,7 +72,7 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
         <div
           className="content"
           onClick={() =>
-            currentPage !== "trash" && setEditNoteModalVisible(true)
+            currentPage !== "trash" && setCreateNoteModalVisible(true)
           }
         >
           {HtmlParser(content)}
@@ -95,9 +102,6 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
 
             {currentPage === "notes" ? (
               <>
-                <button title="Color" className="btn-unset">
-                  <i className="icon fa-solid fa-palette"></i>
-                </button>
                 <button
                   onClick={moveToArchiveClick}
                   disabled={isArchiveNoteLoading}
@@ -133,10 +137,11 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
         </footer>
       </div>
 
-      {editNoteModalVisible ? (
-        <EditNoteModal
+      {createNoteModalVisible ? (
+        <CreateNoteModal
           noteData={noteData}
-          setEditNoteModalVisible={setEditNoteModalVisible}
+          setCreateNoteModalVisible={setCreateNoteModalVisible}
+          editMode={true}
         />
       ) : null}
     </>

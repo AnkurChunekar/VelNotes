@@ -5,17 +5,49 @@
   border: solid 1px var(--plain-lightgray);
 }
 
+.filter-btn span {
+  padding: 2px 0;
+  display: inline-block;
+}
+
 /* filters Menu */
 
 .filter-container .filter-menu {
-  width: 400px;
+  width: 350px;
   position: absolute;
   background-color: var(--plain-white);
-  top: 148px;
+  top: 75px;
   border-radius: 5px;
   border: solid 1.5px var(--plain-lightgray);
   right: 28px;
   height: max-content;
   transition: opacity 0.3s ease;
   box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+}
+
+.filter-menu .sort-section,
+.filter-menu .tags-section {
+  margin: 2rem 0.5rem;
+}
+
+.filter-menu .sort-section {
+  padding-right: 2rem;
+  border-right: solid 1.5px lightgray;
+  margin-right: 2rem;
+}
+
+.filter-menu .radio,
+.filter-menu li {
+  font-size: 14px;
+  margin: 1rem 0;
+}
+
+.filter-menu .tags-section li {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.filter-menu .tags-section ul {
+  margin-left: 0.5rem;
 }

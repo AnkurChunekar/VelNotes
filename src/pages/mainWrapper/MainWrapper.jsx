@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../../context";
+import { useAuth, useFilter } from "../../context";
 import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
+import { capitalizeString } from "../../helpers";
 import "./MainWrapper.css";
 
 export function MainWrapper({ children }) {
@@ -13,7 +14,13 @@ export function MainWrapper({ children }) {
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
+  const { filterState, filterDispatch } = useFilter();
+
   const getPageTitle = (pathname) => {
+    if (pathname.includes("/tags")) {
+      return capitalizeString(pathname.replace("/tags/", ""));
+    }
+
     switch (pathname) {
       case "/notes":
         return "Notes";
@@ -42,6 +49,13 @@ export function MainWrapper({ children }) {
             <input
               type="text"
               className="p-xxs"
+              value={filterState.searchValue}
+              onChange={(e) =>
+                filterDispatch({
+                  type: "UPDATE_SEARCH_VALUE",
+                  payload: { searchValue: e.target.value },
+                })
+              }
               placeholder="Search All Notes here.."
             />
             <button className="p-xxs btn-unset search-icon">
@@ -80,10 +94,7 @@ export function MainWrapper({ children }) {
           ) : null}
         </header>
         <section className="notes-header flex">
-          <h1 className="fw-600 fs-2">
-            {getPageTitle(pathname)}{" "}
-            <span className="gray-text fs-4">(12)</span>
-          </h1>
+          <h1 className="fw-600 fs-2">{getPageTitle(pathname)}</h1>
           <div className="m-left-auto flex ai-center c-gap-1rem">
             <FilterRow />
 
