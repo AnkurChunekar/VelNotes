@@ -1,6 +1,6 @@
 import { useState } from "react";
 import HtmlParser from "react-html-parser/lib/HtmlParser";
-import { useArchive, useNotes, useTrash, useTags } from "../../context";
+import { useArchive, useNotes, useTrash } from "../../context";
 import { getDateString, getTimeString } from "../../helpers/notesHelpers";
 import { CreateNoteModal } from "../modals/CreateNoteModal";
 import "./NoteCard.css";
@@ -55,8 +55,11 @@ export function NoteCard({ noteData, currentPage = "notes" }) {
   return (
     <>
       <div className={`note flex flex-column ${noteData.color}`}>
-        <header className="flex ai-center jc-space-b">
+        <header className="flex ai-center">
           <h2 className="title fw-600"> {title} </h2>
+          <span className="priority m-left-auto">
+            {noteData.priority === "low" ? "LOW" : "HIGH"}
+          </span>
           <button onClick={togglePinClick} title="Pin" className="btn-unset">
             <i
               className={`icon fa-solid fa-map-pin ${
