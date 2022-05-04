@@ -1,31 +1,26 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth, useTags } from "../../context";
-import { EditTagsModal } from "../modals/EditTagsModal";
 import { capitalizeString } from "../../helpers";
 import { logoWhite } from "../../assets";
 import "./AsideNav.css";
 
-export function AsideNav() {
-  const [sideNavCompressed, setSideNavCompressed] = useState(false);
+export function AsideNav({ setAsideNavVisible, asideNavVisible }) {
   const { userLogoutService } = useAuth();
 
   const {
-    tagsState: { tags, tagsModalVisible },
+    tagsState: { tags },
     tagsDispatch,
   } = useTags();
 
+  const toggleSideNavVisibility = () => setAsideNavVisible(false);
+
   return (
     <nav
-      className={`side-nav flex flex-column ${
-        sideNavCompressed ? "compressed" : ""
-      }`}
+      className={`side-nav flex flex-column ${asideNavVisible ? "active" : ""}`}
     >
       <div className="brand-container flex ai-center">
         <button
-          onClick={() =>
-            setSideNavCompressed((sideNavCompressed) => !sideNavCompressed)
-          }
+          onClick={() => setAsideNavVisible((pv) => !pv)}
           className="ham-icon btn-unset"
         >
           <i className="fas fa-bars" />
@@ -36,7 +31,7 @@ export function AsideNav() {
         </div>
       </div>
 
-      <NavLink to="/notes" className="item">
+      <NavLink onClick={toggleSideNavVisibility} to="/notes" className="item">
         <span>
           <i className="fa-solid fa-lightbulb" />
         </span>
@@ -44,7 +39,12 @@ export function AsideNav() {
       </NavLink>
 
       {tags.map((item) => (
-        <NavLink key={item.id} to={`/tags/${item.tagName}`} className="item">
+        <NavLink
+          onClick={toggleSideNavVisibility}
+          key={item.id}
+          to={`/tags/${item.tagName}`}
+          className="item"
+        >
           <span>
             <i className="fa-solid fa-tag" />
           </span>
@@ -62,14 +62,14 @@ export function AsideNav() {
         <span className="text"> Edit Tags </span>
       </button>
 
-      <NavLink to="/archive" className="item">
+      <NavLink onClick={toggleSideNavVisibility} to="/archive" className="item">
         <span>
           <i className="fa-solid fa-box-archive" />
         </span>
         <span className="text"> Archive </span>
       </NavLink>
 
-      <NavLink to="/trash" className="item">
+      <NavLink onClick={toggleSideNavVisibility} to="/trash" className="item">
         <span>
           <i className="fa-solid fa-trash" />
         </span>
@@ -82,8 +82,6 @@ export function AsideNav() {
         </span>
         <span className="text"> Logout </span>
       </button>
-
-      {tagsModalVisible ? <EditTagsModal /> : null}
     </nav>
   );
 }
