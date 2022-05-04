@@ -1,18 +1,11 @@
 const filterByTags = (data, filterState) => {
   if (filterState.tags.length < 1) return data;
 
-  let filteredData = [];
-
-  for (let note of data) {
+  return data.filter((note) => {
     for (let tag of note.tags) {
-      if (filterState.tags.includes(tag)) {
-        console.log("inside");
-        filteredData.push(note);
-      }
+      if (filterState.tags.includes(tag)) return true;
     }
-  }
-
-  return filteredData;
+  });
 };
 
 const sortByPriority = (data, filterState) => {
