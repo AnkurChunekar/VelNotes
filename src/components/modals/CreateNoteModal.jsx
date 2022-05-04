@@ -45,6 +45,23 @@ export function CreateNoteModal({
     }
   };
 
+  const addTagHandler = (e) => {
+    const tagName = e.target.value;
+    if (!inputData.tags.includes(tagName) && tagName !== "") {
+      setInputData((data) => ({
+        ...data,
+        tags: [...data.tags, tagName],
+      }));
+    }
+  };
+
+  const removeTagHandler = (tagName) => {
+    setInputData((data) => ({
+      ...data,
+      tags: data.tags.filter((tag) => tag !== tagName),
+    }));
+  };
+
   return (
     <div className="modal-container flex-center active">
       <div className="modal create-note-modal m-md1">
@@ -79,14 +96,26 @@ export function CreateNoteModal({
           />
         </section>
 
+        <div className="tag-container flex c-gap-1rem m-tb0 m-xs">
+          {inputData.tags.map((item) => (
+            <div key={item} className="tag flex">
+              {item}{' '}
+              <button
+                onClick={() => removeTagHandler(item)}
+                className="btn-unset m-xxxs m-tb0"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+          ))}
+        </div>
+
         <section className="options-container flex ai-center jc-space-b flex-wrap p-md1">
           <div>
             <label htmlFor="tag">Tag: </label>
             <select
               value={inputData.tags[0]}
-              onChange={(e) =>
-                setInputData((data) => ({ ...data, tags: [e.target.value] }))
-              }
+              onChange={addTagHandler}
               name="tag"
               id="tag"
             >
@@ -147,7 +176,7 @@ export function CreateNoteModal({
               "Save Note"
             ) : (
               <>
-                <i className="fas fa-plus" /> "Create Note"
+                <i className="fas fa-plus" /> Create Note
               </>
             )}
           </button>
