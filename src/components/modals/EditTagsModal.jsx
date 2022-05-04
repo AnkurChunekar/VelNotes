@@ -45,6 +45,7 @@ export function EditTagsModal() {
               type="text"
               className="p-xxs"
               placeholder="New Label..."
+              autoFocus
             />
             <button
               title="Add New Tag"
