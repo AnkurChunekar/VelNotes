@@ -87,7 +87,7 @@
   max-width: 100%;
 }
 
-.note .tag-container .tag {
+.tag-container .tag {
   width: max-content;
   background: lightgray;
   padding: 4px 10px;
