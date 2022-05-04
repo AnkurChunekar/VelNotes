@@ -4,6 +4,7 @@
   background-color: var(--plain-white);
   border: solid 1px lightgray;
   padding: 2rem;
+  min-height: 265px;
 }
 
 .note:hover {

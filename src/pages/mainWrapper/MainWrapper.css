@@ -64,6 +64,16 @@
   border-radius: var(--round-radius);
 }
 
+.page-header .ham-icon {
+  font-size: 2.5rem;
+  margin-right: 1rem;
+  color: black;
+}
+
+.page-header .ham-icon:hover {
+  color: var(--primary-color);
+}
+
 /* Notes Page */
 
 .notes-page {
@@ -83,11 +93,14 @@
   position: relative;
 }
 
+.notes-header .actions {
+  margin-left: auto;
+}
+
 /* Notes Section */
 
 .notes-section {
-  padding: 2rem;
-  min-height: 365px;
+  padding: 1rem 2rem;
 }
 
 .notes-section .notes-container {
@@ -127,4 +140,27 @@
   right: 18px;
   top: -6px;
   background-color: var(--plain-white);
+}
+
+
+
+@media screen and (max-width: 475px) {
+  .page-header .user-profile .user-details {
+    display: none;
+  }
+
+  .page-header .profile-img {
+    margin-left: 1.5rem;
+  }
+
+  .notes-header {
+    flex-direction: column;
+    padding: 2rem;
+    row-gap: 1rem;
+  }
+
+  .notes-header .actions {
+    margin-left: 0;
+   justify-content: space-between;
+  }
 }

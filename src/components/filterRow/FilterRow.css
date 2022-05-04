@@ -19,7 +19,7 @@
   top: 75px;
   border-radius: 5px;
   border: solid 1.5px var(--plain-lightgray);
-  right: 28px;
+  right: 15px;
   height: max-content;
   transition: opacity 0.3s ease;
   box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
@@ -50,4 +50,31 @@
 
 .filter-menu .tags-section ul {
   margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 475px) {
+  .filter-container .filter-menu {
+    top: 120px;
+    right: auto;
+    left: 18px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .filter-container .filter-menu {
+    width: 250px;
+  }
+
+  .filter-menu .container {
+    flex-direction: column;
+  }
+
+  .filter-menu .sort-section {
+    border-right: none;
+    margin-bottom: 1rem;
+  }
+
+  .filter-menu .tags-section {
+    margin: 0 5px;
+  }
 }
