@@ -36,10 +36,14 @@
   cursor: pointer;
 }
 
+.create-note-modal .tag-container {
+  overflow-x: auto;
+}
+
 /* Label Modal  */
 
 .label-modal-container {
-  z-index: 5;
+  z-index: 11;
 }
 
 .label-modal {

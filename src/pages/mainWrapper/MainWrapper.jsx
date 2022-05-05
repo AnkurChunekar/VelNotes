@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth, useFilter } from "../../context";
-import { AsideNav, CreateNoteModal, FilterRow } from "../../components";
+import { useAuth, useFilter, useTags } from "../../context";
+import {
+  AsideNav,
+  CreateNoteModal,
+  FilterRow,
+  EditTagsModal,
+} from "../../components";
 import { capitalizeString } from "../../helpers";
 import "./MainWrapper.css";
 
 export function MainWrapper({ children }) {
   const { pathname } = useLocation();
   const { authState, userLogoutService } = useAuth();
-
+  const {
+    tagsState: { tagsModalVisible },
+  } = useTags();
   const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
+  const [asideNavVisible, setAsideNavVisible] = useState(false);
   const [createNoteModalVisible, setCreateNoteModalVisible] = useState(false);
   const [accountMenuVisible, setAccountMenuVisible] = useState(false);
 
@@ -18,7 +26,7 @@ export function MainWrapper({ children }) {
 
   const getPageTitle = (pathname) => {
     if (pathname.includes("/tags")) {
-      return capitalizeString(pathname.replace("/tags/", ""));
+      return capitalizeString(pathname.slice(6).replace("%20", " "));
     }
 
     switch (pathname) {
@@ -39,12 +47,22 @@ export function MainWrapper({ children }) {
     <> {children} </>
   ) : (
     <div className="flex page-container">
-      <AsideNav />
+      <AsideNav
+        asideNavVisible={asideNavVisible}
+        setAsideNavVisible={setAsideNavVisible}
+      />
 
       {/* Header for notes */}
 
       <main className="notes-page w-100pc">
         <header className="page-header flex jc-space-b p-s">
+          <button
+            onClick={() => setAsideNavVisible((pv) => !pv)}
+            className="ham-icon btn-unset"
+          >
+            <i className="fas fa-bars" />
+          </button>
+
           <div className="input-wrapper bd-rad-sm input-w-btn">
             <input
               type="text"
@@ -56,7 +74,7 @@ export function MainWrapper({ children }) {
                   payload: { searchValue: e.target.value },
                 })
               }
-              placeholder="Search All Notes here.."
+              placeholder="search notes.."
             />
             <button className="p-xxs btn-unset search-icon">
               <i className="fas fa-search" />
@@ -66,7 +84,7 @@ export function MainWrapper({ children }) {
             onClick={() => setAccountMenuVisible((pv) => !pv)}
             className="user-profile btn-unset flex"
           >
-            <div className="flex flex-column ai-end jc-center m-xs m-tb0">
+            <div className="user-details flex flex-column ai-end jc-center m-xs m-tb0">
               <span className="gray-text fs-6"> Welcome </span>
 
               {user ? (
@@ -95,7 +113,7 @@ export function MainWrapper({ children }) {
         </header>
         <section className="notes-header flex">
           <h1 className="fw-600 fs-2">{getPageTitle(pathname)}</h1>
-          <div className="m-left-auto flex ai-center c-gap-1rem">
+          <div className="actions flex ai-center c-gap-1rem">
             <FilterRow />
 
             <button
@@ -113,6 +131,8 @@ export function MainWrapper({ children }) {
         </section>
         {children}
       </main>
+
+      {tagsModalVisible ? <EditTagsModal /> : null}
     </div>
   );
 }

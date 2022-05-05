@@ -58,7 +58,7 @@ export function FilterRow() {
             </button>
           </header>
 
-          <div className="flex ai-start">
+          <div className="flex ai-start container">
             <section className="sort-section">
               <h5 className="fw-600">Priority</h5>
               <div className="radio">
