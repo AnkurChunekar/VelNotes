@@ -6,6 +6,7 @@
   color: var(--plain-white);
   flex-shrink: 0;
   height: 100vh;
+  overflow-y: auto;
 }
 
 .side-nav .brand-container {
