@@ -11,6 +11,8 @@ const formats = [
   "list",
   "clean",
   "video",
+  "blockquote",
+  "code-block",
 ];
 
 const modules = {
@@ -19,7 +21,7 @@ const modules = {
     [],
     [{ list: "ordered" }, { list: "bullet" }],
     [],
-    ["image"],
+    ["image", "blockquote", "code-block"],
   ],
 };
 
