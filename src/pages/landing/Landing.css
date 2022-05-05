@@ -25,6 +25,10 @@
   font-size: 1.8rem;
 }
 
+.notes-homepage .notes-illustration {
+  border-radius: var(--round-radius);
+}
+
 .homepage-nav {
   max-width: 1440px;
   padding: 2.5rem;
