@@ -13,7 +13,9 @@ import "./MainWrapper.css";
 export function MainWrapper({ children }) {
   const { pathname } = useLocation();
   const { authState, userLogoutService } = useAuth();
-  const { tagsState: {tagsModalVisible} } = useTags();
+  const {
+    tagsState: { tagsModalVisible },
+  } = useTags();
   const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
   const [asideNavVisible, setAsideNavVisible] = useState(false);
@@ -24,7 +26,7 @@ export function MainWrapper({ children }) {
 
   const getPageTitle = (pathname) => {
     if (pathname.includes("/tags")) {
-      return capitalizeString(pathname.replace("/tags/", ""));
+      return capitalizeString(pathname.slice(6).replace("%20", " "));
     }
 
     switch (pathname) {
