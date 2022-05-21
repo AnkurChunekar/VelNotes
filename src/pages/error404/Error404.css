@@ -1,0 +1,25 @@
+.error-page {
+    height: calc(95vh - 72.5px);
+    text-align: center;
+    background-color: var(--lynx-white);
+  }
+  
+  .error-page .error-content {
+    padding: 2rem;
+    background-color: white;
+    height: 400px;
+    max-width: 400px;
+    border-radius: 5px;
+    row-gap: 2rem;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .error-page .error-status {
+      font-size: 5rem;
+      font-weight: 600;
+  }
+  
+  .error-page p {
+      font-size: 1.4rem;
+      margin: 1rem 0;
+  }

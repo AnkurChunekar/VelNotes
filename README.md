@@ -1,70 +1,146 @@
-# Getting Started with Create React App
+<div id="top"></div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- PROJECT LOGO -->
 
-## Available Scripts
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="https://velocity-practice.netlify.app/images/velocity-1-logo.svg" alt="Logo" width="150" height="150">
+  </a>
+  <br/>
+  <h3 style="font-weight: 600" align="center">VELNotes</h3>
 
-In the project directory, you can run:
+  <p align="center">
+    VelNotes is a note taking app for taking notes and organising them.
+    <br />
+    <a href="https://velnotes.netlify.app/">Live Website</a>
+    ·
+    <a href="https://github.com/AnkurChunekar/VelNotes/issues/new">Report Bug</a>
+    ·
+    <a href="https://github.com/AnkurChunekar/VelNotes/issues/new">Request Feature</a>
+  </p>
+</div>
 
-### `yarn start`
+<!-- TABLE OF CONTENTS -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<details style="margin: 1rem 0">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+      <li><a href="#built-with">Built With</a></li>
+    <li>
+      <a href="#features">Features</a>
+    </li>
+    <li><a href="#how-to-run-locally">How To Run Locally</a></li>
+    <li><a href="#folder-structure">Folder Structure</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<!-- ABOUT THE PROJECT -->
 
-### `yarn test`
+## About The Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![product-screenshot](/src/assets/notes-gif.gif)
+Inspiration strikes anywhere, VelNotes helps you capture, organize and save you ideas, across all platforms.
 
-### `yarn build`
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- Built With -->
+## Built With
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [ReactJS](https://reactjs.org/)
+- [React Router](https://reactrouter.com/)
+- [Velocity UI](https://velocity-ui.netlify.app/)
+- [Mockbee](https://www.mockbe.netlify.app/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
+- [Font Awesome](https://fontawesome.com/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### `yarn eject`
+<!-- Features -->
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Auth Management
+  - Login
+  - Signup
+  - Logout
+- Notes Management
+  - Crud on Notes
+  - Note can have text as well as image
+  - User can add color to the note
+- Archive / Trash Functionality
+  - User can add note to Archive / Trash
+  - Note can be permanently deleted from trash
+- Labels Management
+  - User can add a Label to any note
+  - New labels can also be created
+- User can add between 5 themes of his app
+- Filter Videos by Labels
+- Sort Videos by Priority and Date
+- Search Notes by Title as well as description
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<!-- How To Use -->
+## How To Run Locally
+- Fork the project
+- Run npm install
+- Run npm start to run the project on your localhost
 
-## Learn More
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<!-- Folder Structure -->
+## Folder Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+- /public
+- /src
+   - /assets
+   - /backend
+   - /components
+   - /context
+   - /helpers
+   - /pages
+   - /reducers
+   - App.css
+   - App.js
+   - index.css
+   - index.js
+   - server.js
+- package-lock.json
+- package.json
+- README.md
+- yarn.lock
+```
 
-### Code Splitting
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<!-- CONTRIBUTING -->
 
-### Analyzing the Bundle Size
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-### Making a Progressive Web App
+1. Fork the Project
+2. Create your Feature Branch
+3. Commit your Changes
+4. Push to the Branch
+5. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### Advanced Configuration
+<!-- CONTACT -->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contact
 
-### Deployment
+- Twitter - [@ankur_chunekar](https://twitter.com/ankur_chunekar)
+- Linkedin - [@ankurchunekar](https://www.linkedin.com/in/ankurchunekar/)
+- Website - [ankurchunekar.netlify.app](https://ankurchunekar.netlify.app/)
+- Hashnode - [@ankurchunekar](https://ankurchunekar.hashnode.dev/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="right">(<a href="#top">back to top</a>)</p>

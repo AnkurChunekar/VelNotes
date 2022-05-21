@@ -6,3 +6,4 @@ export { Notes } from "./notes/Notes";
 export { Archive } from "./archive/Archive";
 export { Trash } from "./trash/Trash";
 export { TagPage } from "./tagPage/TagPage";
+export { Error404 } from "./error404/Error404";
