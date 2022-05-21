@@ -88,13 +88,9 @@ Inspiration strikes anywhere, VelNotes helps you capture, organize and save you 
 
 <!-- How To Use -->
 ## How To Run Locally
-```
-$ git clone https://github.com/romabulni/BakinGram.git
-$ cd bakinLane-react
-$ npm install
-$ npm start
-```
-
+- Fork the project
+- Run npm install
+- Run npm start to run the project on your localhost
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
