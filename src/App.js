@@ -9,6 +9,7 @@ import {
   Archive,
   Trash,
   TagPage,
+  Error404,
 } from "./pages";
 import { RequiresAuth } from "./components";
 import "react-toastify/dist/ReactToastify.css";
@@ -65,6 +66,14 @@ function App() {
               element={
                 <RequiresAuth>
                   <TagPage />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <RequiresAuth>
+                  <Error404 />
                 </RequiresAuth>
               }
             />
